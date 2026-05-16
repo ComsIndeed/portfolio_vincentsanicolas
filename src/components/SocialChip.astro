@@ -1,0 +1,92 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  href: string;
+  icon: string;
+  label: string;
+}
+
+const { href, icon, label } = Astro.props;
+---
+
+<a href={href} class="social-chip" target="_blank" rel="noopener noreferrer" aria-label={label}>
+  <div class="icon-wrapper">
+    <Icon name={icon} />
+  </div>
+  <span class="label">{label}</span>
+</a>
+
+<style>
+  .social-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 99px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s var(--ease-out-expo);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: white;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s var(--ease-out-expo);
+  }
+
+  .icon-wrapper :global(svg) {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--text-color);
+    opacity: 0.8;
+  }
+
+  .label {
+    opacity: 0.7;
+    transition: opacity 0.2s var(--ease-out-expo);
+  }
+
+  .social-chip:hover {
+    background: white;
+    border-color: var(--text-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .social-chip:hover .icon-wrapper {
+    transform: rotate(12deg);
+  }
+
+  .social-chip:hover .label {
+    opacity: 1;
+  }
+
+  .social-chip:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* Matching the app's weathering if possible */
+  .social-chip::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.5;
+  }
+</style>
