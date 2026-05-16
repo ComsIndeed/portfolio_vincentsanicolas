@@ -27,7 +27,7 @@ body {
 /* Weathered Grid Lines */
 body::after {
   content: "";
-  position: fixed;
+  position: absolute; /* Changed from fixed to absolute to scroll with content */
   top: 0;
   left: 0;
   width: 100%;

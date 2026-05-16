@@ -39,12 +39,10 @@ Adding this class enables the **Blueprint Design** features:
 ## 4. Horizontal Alignment (The Magic Nudge)
 Horizontal alignment is handled automatically at the `<main>` level. 
 - The JS script calculates the remainder of the centered margins and applies a `translateX` nudge.
-- This ensures the left edge of your content always starts exactly on a vertical grid line.
+- It uses `document.documentElement.clientWidth` to account for scrollbars, ensuring the grid doesn't drift when the page gets long.
 
-## 5. Components (e.g., Chips)
-Individual components like `Chip.astro` have their own "hugging" logic. 
-- They use `border-radius: 0` and specific padding to fit the blocky aesthetic.
-- They are typically placed *inside* a `data-snap="block"` group to handle their overall vertical rhythm.
+## 5. Scrolling Context
+The background grid is set to `position: absolute` on the `body`. This ensures that as the user scrolls, the grid travels with the content, maintaining the "snapped" alignment for all elements, even those deep within the page.
 
 ---
 

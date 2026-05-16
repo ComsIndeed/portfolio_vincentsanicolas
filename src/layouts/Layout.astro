@@ -42,7 +42,8 @@ const { title, showBack = false } = Astro.props;
 				// 1. Handle Horizontal "Magic Nudge" for the container
 				if (main) {
 					const containerWidth = 48 * rootFontSize;
-					const viewportWidth = window.innerWidth;
+					// Use clientWidth to ignore the scrollbar width for a more accurate center
+					const viewportWidth = document.documentElement.clientWidth;
 					if (viewportWidth > containerWidth) {
 						const sideMargin = (viewportWidth - containerWidth) / 2;
 						const nudge = -1 * (sideMargin % gridSize);
