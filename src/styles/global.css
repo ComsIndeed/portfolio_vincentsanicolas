@@ -95,66 +95,59 @@ main {
   opacity: 0.2;
 }
 
-/* Corner Brackets */
+/* Corner Brackets - Moved to content corners */
 .show-snap[data-snap="block"]::after {
   content: "";
   position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
+  /* Track the actual content height */
+  top: var(--snap-gap);
+  bottom: var(--snap-gap);
+  left: 0;
+  right: 0;
   background: 
-    linear-gradient(to right, var(--text-color) 2px, transparent 2px) 0 0,
-    linear-gradient(to bottom, var(--text-color) 2px, transparent 2px) 0 0,
-    linear-gradient(to left, var(--text-color) 2px, transparent 2px) 100% 0,
-    linear-gradient(to bottom, var(--text-color) 2px, transparent 2px) 100% 0,
-    linear-gradient(to right, var(--text-color) 2px, transparent 2px) 0 100%,
-    linear-gradient(to top, var(--text-color) 2px, transparent 2px) 0 100%,
-    linear-gradient(to left, var(--text-color) 2px, transparent 2px) 100% 100%,
-    linear-gradient(to top, var(--text-color) 2px, transparent 2px) 100% 100%;
+    linear-gradient(to right, var(--text-color) 1.5px, transparent 1.5px) 0 0,
+    linear-gradient(to bottom, var(--text-color) 1.5px, transparent 1.5px) 0 0,
+    linear-gradient(to left, var(--text-color) 1.5px, transparent 1.5px) 100% 0,
+    linear-gradient(to bottom, var(--text-color) 1.5px, transparent 1.5px) 100% 0,
+    linear-gradient(to right, var(--text-color) 1.5px, transparent 1.5px) 0 100%,
+    linear-gradient(to top, var(--text-color) 1.5px, transparent 1.5px) 0 100%,
+    linear-gradient(to left, var(--text-color) 1.5px, transparent 1.5px) 100% 100%,
+    linear-gradient(to top, var(--text-color) 1.5px, transparent 1.5px) 100% 100%;
   background-repeat: no-repeat;
-  background-size: 12px 12px;
+  background-size: 8px 8px;
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.15; /* Much more subtle */
+  transition: opacity 0.2s;
 }
 
-/* Dimension Lines (The visual measurement) */
+[data-snap="block"]:hover::after {
+  opacity: 0.4; /* Highlight on hover */
+}
+
+/* Dimension Lines (Measurement from content corner to grid line) */
 [data-snap="block"] {
-  --guide-color: rgba(0, 0, 0, 0.4);
+  --guide-color: rgba(0, 0, 0, 0.15);
 }
-
-[data-snap="block"]::marker { content: none; } /* Hide list markers if any */
-
-/* Top Dimension Line */
-[data-snap="block"]::before {
-  z-index: 5;
-}
-
-/* We use a pseudo-element on a wrapper or just the container for the lines */
-/* Since we already used ::before/::after, let's add a helper inside Layout.astro if needed, 
-   but we can actually use background on the block itself for the dimension lines! */
 
 [data-snap="block"] {
   background-image: 
-    /* Top Line */
-    linear-gradient(to bottom, var(--guide-color) var(--snap-gap), transparent var(--snap-gap)),
-    /* Bottom Line */
-    linear-gradient(to top, var(--guide-color) var(--snap-gap), transparent var(--snap-gap));
+    /* Top vertical line */
+    linear-gradient(to bottom, var(--guide-color) 1px, transparent 1px) ,
+    /* Bottom vertical line */
+    linear-gradient(to top, var(--guide-color) 1px, transparent 1px);
   background-position: left 20px top 0, left 20px bottom 0;
-  background-size: 1px 100%, 1px 100%;
+  background-size: 1px var(--snap-gap), 1px var(--snap-gap);
   background-repeat: no-repeat;
 }
 
-/* Horizontal Ticks for the dimension lines */
+/* Horizontal Ticks at the grid intersections */
 [data-snap="block"]::before {
-  /* Using gradients to draw ticks at the start/end of the gap */
   background: 
-    linear-gradient(to right, var(--guide-color) 8px, transparent 8px) left 16px top calc(var(--snap-gap) - 0.5px),
-    linear-gradient(to right, var(--guide-color) 8px, transparent 8px) left 16px top 0,
-    linear-gradient(to right, var(--guide-color) 8px, transparent 8px) left 16px bottom calc(var(--snap-gap) - 0.5px),
-    linear-gradient(to right, var(--guide-color) 8px, transparent 8px) left 16px bottom 0;
+    linear-gradient(to right, var(--guide-color) 6px, transparent 6px) left 17px top 0,
+    linear-gradient(to right, var(--guide-color) 6px, transparent 6px) left 17px bottom 0;
   background-repeat: no-repeat;
-  background-size: 8px 1px;
+  background-size: 6px 1px;
+  opacity: 0.2;
 }
 
 h1, h2, h3 {
