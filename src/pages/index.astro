@@ -48,11 +48,10 @@ import { Icon } from 'astro-icon/components';
 	<div class="project-list">
 		<!-- Project 1 -->
 		<section class="project-group">
+			<a href="/llm-json-stream" class="project-tile-link" aria-label="View Project: LLM_JSON_STREAM"></a>
 			<div data-snap="block" class="show-snap project-header-block">
 				<span class="project-name">LLM_JSON_STREAM (NPM & PUB.DEV)</span>
-				<a href="/llm-json-stream" class="project-title-link">
-					<h3 class="project-title">Open-Source Reactive JSON Stream Parser</h3>
-				</a>
+				<h3 class="project-title">Open-Source Reactive JSON Stream Parser</h3>
 			</div>
 			<div data-snap="block" class="show-snap project-description-block">
 				<p class="project-description">
@@ -81,11 +80,10 @@ import { Icon } from 'astro-icon/components';
 
 		<!-- Project 2 -->
 		<section class="project-group">
+			<a href="/project-2359" class="project-tile-link" aria-label="View Project: PROJECT 2359"></a>
 			<div data-snap="block" class="show-snap project-header-block">
 				<span class="project-name">PROJECT 2359</span>
-				<a href="/project-2359" class="project-title-link">
-					<h3 class="project-title">AI-Driven Study Application & FSRS Scheduler</h3>
-				</a>
+				<h3 class="project-title">AI-Driven Study Application & FSRS Scheduler</h3>
 			</div>
 			<div data-snap="block" class="show-snap project-description-block">
 				<p class="project-description">
@@ -106,11 +104,10 @@ import { Icon } from 'astro-icon/components';
 
 		<!-- Project 3 -->
 		<section class="project-group">
+			<a href="/project-2360" class="project-tile-link" aria-label="View Project: PROJECT 2360"></a>
 			<div data-snap="block" class="show-snap project-header-block">
 				<span class="project-name">PROJECT 2360 (FLOWSERRACT)</span>
-				<a href="/project-2360" class="project-title-link">
-					<h3 class="project-title">Generative Native UI Engine</h3>
-				</a>
+				<h3 class="project-title">Generative Native UI Engine</h3>
 			</div>
 			<div data-snap="block" class="show-snap project-description-block">
 				<p class="project-description">
@@ -168,14 +165,37 @@ import { Icon } from 'astro-icon/components';
 		}
 
 		.project-title-link:hover .project-title {
-			text-decoration: underline;
-			text-underline-offset: 4px;
-			text-decoration-thickness: 2px;
+			/* Handled by .project-group:hover now */
 		}
 
 		/* Hover effect on the whole project group */
 		.project-group:hover {
 			background-color: rgba(0, 0, 0, 0.02);
+		}
+
+		.project-group:hover .project-title {
+			text-decoration: underline;
+			text-underline-offset: 4px;
+			text-decoration-thickness: 2px;
+		}
+
+		.project-tile-link {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 10;
+		}
+
+		.project-tech-block {
+			position: relative;
+			z-index: 20;
+			pointer-events: none; /* Allow clicks to pass through to the tile link */
+		}
+
+		.project-tech-block :global(a) {
+			pointer-events: auto; /* Re-enable clicks for chips with links */
 		}
 
 		.project-header-block,
@@ -190,12 +210,18 @@ import { Icon } from 'astro-icon/components';
 		}
 
 		.project-title {
-			font-size: 2.25rem;
-			font-weight: 800;
-			letter-spacing: -0.04em;
+			font-size: 1.85rem; /* Slightly smaller than h1 */
+			font-weight: 600; /* Less bold, matching global headings */
+			letter-spacing: -0.02em;
 			margin: 0;
 			color: var(--text-color);
 			line-height: 1.1;
+		}
+
+		h1 {
+			font-size: 2.25rem;
+			font-weight: 700;
+			letter-spacing: -0.04em;
 		}
 
 		.project-name {
