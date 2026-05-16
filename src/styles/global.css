@@ -1,8 +1,8 @@
 :root {
   --bg-color: #fafafa;
   --text-color: #111111;
-  --grid-color: rgba(0, 0, 0, 0.05);
-  --grid-size: 40px;
+  --grid-color: rgba(0, 0, 0, 0.175);
+  --grid-size: 4em;
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
@@ -18,17 +18,32 @@ body {
   font-family: var(--font-main);
   line-height: 1.6;
   min-height: 100vh;
-  
-  /* Grid lines */
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Weathered Grid Lines */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: 
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: var(--grid-size) var(--grid-size);
   
-  /* Weathered background effect */
-  position: relative;
+  /* Very sharp, binary-like weathering spots (unspread) */
+  mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1000 1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='weathering'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 -15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23weathering)'/%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1000 1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='weathering'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 -15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23weathering)'/%3E%3C/svg%3E");
+  
+  pointer-events: none;
+  z-index: 0;
 }
 
+/* Noise overlay */
 body::before {
   content: "";
   position: fixed;
@@ -37,7 +52,7 @@ body::before {
   width: 100%;
   height: 100%;
   background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.04;
+  opacity: 0.08;
   pointer-events: none;
   z-index: 100;
 }
@@ -47,7 +62,7 @@ main {
   margin: 0 auto;
   padding: 4rem 2rem;
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 h1, h2, h3 {
