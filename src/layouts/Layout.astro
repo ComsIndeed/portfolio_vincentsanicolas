@@ -29,29 +29,37 @@ const { title } = Astro.props;
 			 */
 			const snapToGrid = () => {
 				const blocks = document.querySelectorAll('[data-snap="block"]');
+				const main = document.querySelector('main');
 				const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 				const gridSize = 4 * rootFontSize; // 4rem
 
+				// 1. Handle Horizontal "Magic Nudge" for the container
+				if (main) {
+					const containerWidth = 48 * rootFontSize;
+					const viewportWidth = window.innerWidth;
+					if (viewportWidth > containerWidth) {
+						const sideMargin = (viewportWidth - containerWidth) / 2;
+						const nudge = -1 * (sideMargin % gridSize);
+						main.style.transform = `translateX(${nudge}px)`;
+					} else {
+						main.style.transform = 'none';
+					}
+				}
+
+				// 2. Handle Vertical Block Snapping
 				blocks.forEach((block) => {
 					if (!(block instanceof HTMLElement)) return;
 					
-					// 1. Reset for measurement
 					block.style.minHeight = '0px';
-					
-					// 2. Measure natural height
 					const naturalHeight = block.offsetHeight;
-					
-					// 3. Calculate next multiple of grid
 					const cellsNeeded = Math.ceil(naturalHeight / gridSize);
 					const snappedHeight = Math.max(gridSize, cellsNeeded * gridSize);
 					
-					// 4. Apply snapped height and centering
 					block.style.minHeight = `${snappedHeight}px`;
 					block.style.display = 'flex';
 					block.style.flexDirection = 'column';
 					block.style.justifyContent = 'center';
 					
-					// 5. Export the "gap" to CSS for measurement lines
 					const gap = (snappedHeight - naturalHeight) / 2;
 					block.style.setProperty('--snap-gap', `${gap}px`);
 				});

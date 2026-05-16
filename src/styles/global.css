@@ -65,13 +65,7 @@ main {
   padding: var(--grid-size) 2rem;
   position: relative;
   z-index: 10;
-  
-  /* The "Magic Nudge": 
-     Aligns the centered container to the fixed background grid lines.
-  */
-  @media (min-width: 48rem) {
-    transform: translateX(calc( -1 * ( (100vw - var(--container-width)) / 2 % var(--grid-size) ) ));
-  }
+  /* transform is now handled by JS for better cross-browser math */
 }
 
 /* Grid-Block: Base styles for JS-managed snapping units */
@@ -93,47 +87,43 @@ main {
   border-bottom: 1px dashed var(--grid-color);
   pointer-events: none;
   opacity: 0.2;
+  z-index: 5;
 }
 
 /* Corner Brackets - Moved to content corners */
 .show-snap[data-snap="block"]::after {
   content: "";
   position: absolute;
-  /* Track the actual content height */
   top: var(--snap-gap);
   bottom: var(--snap-gap);
   left: 0;
   right: 0;
-  background: 
-    linear-gradient(to right, var(--text-color) 1.5px, transparent 1.5px) 0 0,
-    linear-gradient(to bottom, var(--text-color) 1.5px, transparent 1.5px) 0 0,
-    linear-gradient(to left, var(--text-color) 1.5px, transparent 1.5px) 100% 0,
-    linear-gradient(to bottom, var(--text-color) 1.5px, transparent 1.5px) 100% 0,
-    linear-gradient(to right, var(--text-color) 1.5px, transparent 1.5px) 0 100%,
-    linear-gradient(to top, var(--text-color) 1.5px, transparent 1.5px) 0 100%,
-    linear-gradient(to left, var(--text-color) 1.5px, transparent 1.5px) 100% 100%,
-    linear-gradient(to top, var(--text-color) 1.5px, transparent 1.5px) 100% 100%;
+  background-image: 
+    linear-gradient(to right, var(--text-color) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, var(--text-color) 1.5px, transparent 1.5px),
+    linear-gradient(to left, var(--text-color) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, var(--text-color) 1.5px, transparent 1.5px),
+    linear-gradient(to right, var(--text-color) 1.5px, transparent 1.5px),
+    linear-gradient(to top, var(--text-color) 1.5px, transparent 1.5px),
+    linear-gradient(to left, var(--text-color) 1.5px, transparent 1.5px),
+    linear-gradient(to top, var(--text-color) 1.5px, transparent 1.5px);
+  background-position: 0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%;
   background-repeat: no-repeat;
   background-size: 8px 8px;
   pointer-events: none;
-  opacity: 0.15; /* Much more subtle */
+  opacity: 0.15;
   transition: opacity 0.2s;
 }
 
 [data-snap="block"]:hover::after {
-  opacity: 0.4; /* Highlight on hover */
+  opacity: 0.4;
 }
 
 /* Dimension Lines (Measurement from content corner to grid line) */
 [data-snap="block"] {
   --guide-color: rgba(0, 0, 0, 0.15);
-}
-
-[data-snap="block"] {
   background-image: 
-    /* Top vertical line */
-    linear-gradient(to bottom, var(--guide-color) 1px, transparent 1px) ,
-    /* Bottom vertical line */
+    linear-gradient(to bottom, var(--guide-color) 1px, transparent 1px),
     linear-gradient(to top, var(--guide-color) 1px, transparent 1px);
   background-position: left 20px top 0, left 20px bottom 0;
   background-size: 1px var(--snap-gap), 1px var(--snap-gap);
@@ -142,12 +132,13 @@ main {
 
 /* Horizontal Ticks at the grid intersections */
 [data-snap="block"]::before {
-  background: 
-    linear-gradient(to right, var(--guide-color) 6px, transparent 6px) left 17px top 0,
-    linear-gradient(to right, var(--guide-color) 6px, transparent 6px) left 17px bottom 0;
+  /* Using separate properties to avoid overriding border-top/bottom */
+  background-image: 
+    linear-gradient(to right, var(--guide-color) 6px, transparent 6px),
+    linear-gradient(to right, var(--guide-color) 6px, transparent 6px);
+  background-position: left 17px top 0, left 17px bottom 0;
   background-repeat: no-repeat;
   background-size: 6px 1px;
-  opacity: 0.2;
 }
 
 h1, h2, h3 {
