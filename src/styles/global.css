@@ -174,14 +174,29 @@ a:hover {
   opacity: 0.7;
 }
 
-nav {
-  margin-bottom: 4rem;
+/* Pinned Navigation (for sub-pages) */
+.back-nav {
+  position: absolute;
+  top: 1rem; /* 1 unit down from the very top */
+  left: 1rem; /* 1 unit in from the left */
+  z-index: 50;
 }
 
-nav a {
-  margin-right: 1.5rem;
+.back-nav a {
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  color: var(--text-color);
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.back-nav a:hover {
+  opacity: 1;
+}
+
+nav {
+  margin-bottom: 4rem;
 }
