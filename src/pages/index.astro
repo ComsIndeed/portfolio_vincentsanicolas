@@ -5,50 +5,70 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <Layout title="Vincent Sanicolas | Portfolio">
-	<h1>Vincent Sanicolas</h1>
-	<p>
-		Software Developer | Flutter & Web
-		<br/>
-		Metro Manila, Philippines
-	</p>
+	<div data-snap="block" class="show-snap">
+		<h1>Vincent Sanicolas</h1>
+	</div>
 
-	<div class="stack-list">
-		<Chip label="Flutter">
-			<Icon name="simple-icons:flutter" slot="icon" />
-		</Chip>
-		<Chip label="Dart">
-			<Icon name="simple-icons:dart" slot="icon" />
-		</Chip>
-		<Chip label="React">
-			<Icon name="simple-icons:react" slot="icon" />
-		</Chip>
-		<Chip label="TypeScript">
-			<Icon name="simple-icons:typescript" slot="icon" />
-		</Chip>
-		<Chip label="Astro">
-			<Icon name="simple-icons:astro" slot="icon" />
-		</Chip>
-		<Chip label="Supabase">
-			<Icon name="simple-icons:supabase" slot="icon" />
-		</Chip>
+	<div data-snap="block" class="show-snap">
+		<p>
+			Software Developer | Flutter & Web
+			<br/>
+			Metro Manila, Philippines
+		</p>
+	</div>
+
+	<div data-snap="block" class="show-snap">
+		<div class="stack-list">
+			<Chip label="Flutter">
+				<Icon name="simple-icons:flutter" slot="icon" />
+			</Chip>
+			<Chip label="Dart">
+				<Icon name="simple-icons:dart" slot="icon" />
+			</Chip>
+			<Chip label="React">
+				<Icon name="simple-icons:react" slot="icon" />
+			</Chip>
+			<Chip label="TypeScript">
+				<Icon name="simple-icons:typescript" slot="icon" />
+			</Chip>
+			<Chip label="Astro">
+				<Icon name="simple-icons:astro" slot="icon" />
+			</Chip>
+			<Chip label="Supabase">
+				<Icon name="simple-icons:supabase" slot="icon" />
+			</Chip>
+		</div>
 	</div>
 
 	<style>
 		.stack-list {
 			display: flex;
 			flex-wrap: wrap;
-			gap: 0.75rem;
-			margin-top: 1rem;
-			margin-bottom: 2rem;
+			gap: var(--sub-grid);
+		}
+		
+		ul {
+			list-style: none;
+		}
+
+		.project-item {
+			display: block;
 		}
 	</style>
 	
-	<section>
+	<div data-snap="block" class="show-snap">
 		<h2>Projects</h2>
-		<ul>
-			<li><a href="/llm-json-stream">LLM JSON Stream</a></li>
-			<li><a href="/project-2359">Project 2359</a></li>
-			<li><a href="/project-2360">Project 2360</a></li>
-		</ul>
-	</section>
+	</div>
+
+	<ul>
+		<li data-snap="block" class="show-snap project-item">
+			<a href="/llm-json-stream">LLM JSON Stream</a>
+		</li>
+		<li data-snap="block" class="show-snap project-item">
+			<a href="/project-2359">Project 2359</a>
+		</li>
+		<li data-snap="block" class="show-snap project-item">
+			<a href="/project-2360">Project 2360</a>
+		</li>
+	</ul>
 </Layout>

@@ -21,30 +21,56 @@ const hasIcon = Astro.slots.has('icon');
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.25rem 0.75rem;
-    background-color: #ffffff; /* White paper */
-    border: 1.5px solid #d1d5db; /* Light grey outline */
-    border-radius: 2px; /* Square-ish */
-    font-size: 0.875rem;
+    padding: 0.35rem 0.85rem;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 0; /* Pure square for grid snapping */
+    font-size: 0.8rem;
     font-weight: 500;
-    color: #374151; /* Darker grey text */
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+    color: #374151;
+    position: relative;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05); /* Blocky shadow */
     
     /* Weathering effect */
     background-image: 
-      radial-gradient(circle at 50% 50%, transparent 80%, rgba(255, 255, 255, 0.1) 100%),
       url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
     
-    /* Center text if no icon */
     justify-content: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.1s ease;
     cursor: default;
     user-select: none;
   }
 
+  /* Blueprint Corner Markers */
+  .chip::before, .chip::after {
+    content: "";
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-color: var(--grid-color);
+    border-style: solid;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  /* Top-left marker */
+  .chip::before {
+    top: -3px;
+    left: -3px;
+    border-width: 1px 0 0 1px;
+  }
+
+  /* Bottom-right marker */
+  .chip::after {
+    bottom: -3px;
+    right: -3px;
+    border-width: 0 1px 1px 0;
+  }
+
   .chip:hover {
-    transform: scale(1.02);
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0px var(--grid-color);
+    border-color: var(--text-color);
   }
 
 

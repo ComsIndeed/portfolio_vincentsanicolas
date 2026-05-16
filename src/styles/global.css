@@ -3,7 +3,9 @@
   --text-color: #111111;
   --grid-color: rgba(0, 0, 0, 0.175);
   --grid-size: 4rem;
+  --sub-grid: 1rem;
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --container-width: 48rem; /* Exactly 12 grid cells */
 }
 
 * {
@@ -16,7 +18,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
   font-family: var(--font-main);
-  line-height: 1.6;
+  line-height: 1.5; /* Adjusted to fit better in 1rem/2rem steps */
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -58,17 +60,115 @@ body::before {
 }
 
 main {
-  max-width: 800px;
+  max-width: var(--container-width);
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: var(--grid-size) 2rem;
   position: relative;
   z-index: 10;
+  
+  /* The "Magic Nudge": 
+     Aligns the centered container to the fixed background grid lines.
+  */
+  @media (min-width: 48rem) {
+    transform: translateX(calc( -1 * ( (100vw - var(--container-width)) / 2 % var(--grid-size) ) ));
+  }
+}
+
+/* Grid-Block: Base styles for JS-managed snapping units */
+[data-snap="block"] {
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* The dashed boundary of the block */
+[data-snap="block"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-top: 1px dashed var(--grid-color);
+  border-bottom: 1px dashed var(--grid-color);
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+/* Corner Brackets */
+.show-snap[data-snap="block"]::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: 
+    linear-gradient(to right, var(--text-color) 2px, transparent 2px) 0 0,
+    linear-gradient(to bottom, var(--text-color) 2px, transparent 2px) 0 0,
+    linear-gradient(to left, var(--text-color) 2px, transparent 2px) 100% 0,
+    linear-gradient(to bottom, var(--text-color) 2px, transparent 2px) 100% 0,
+    linear-gradient(to right, var(--text-color) 2px, transparent 2px) 0 100%,
+    linear-gradient(to top, var(--text-color) 2px, transparent 2px) 0 100%,
+    linear-gradient(to left, var(--text-color) 2px, transparent 2px) 100% 100%,
+    linear-gradient(to top, var(--text-color) 2px, transparent 2px) 100% 100%;
+  background-repeat: no-repeat;
+  background-size: 12px 12px;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Dimension Lines (The visual measurement) */
+[data-snap="block"] {
+  --guide-color: rgba(0, 0, 0, 0.4);
+}
+
+[data-snap="block"]::marker { content: none; } /* Hide list markers if any */
+
+/* Top Dimension Line */
+[data-snap="block"]::before {
+  z-index: 5;
+}
+
+/* We use a pseudo-element on a wrapper or just the container for the lines */
+/* Since we already used ::before/::after, let's add a helper inside Layout.astro if needed, 
+   but we can actually use background on the block itself for the dimension lines! */
+
+[data-snap="block"] {
+  background-image: 
+    /* Top Line */
+    linear-gradient(to bottom, var(--guide-color) var(--snap-gap), transparent var(--snap-gap)),
+    /* Bottom Line */
+    linear-gradient(to top, var(--guide-color) var(--snap-gap), transparent var(--snap-gap));
+  background-position: left 20px top 0, left 20px bottom 0;
+  background-size: 1px 100%, 1px 100%;
+  background-repeat: no-repeat;
+}
+
+/* Horizontal Ticks for the dimension lines */
+[data-snap="block"]::before {
+  /* Using gradients to draw ticks at the start/end of the gap */
+  background: 
+    linear-gradient(to right, var(--guide-color) 8px, transparent 8px) left 16px top calc(var(--snap-gap) - 0.5px),
+    linear-gradient(to right, var(--guide-color) 8px, transparent 8px) left 16px top 0,
+    linear-gradient(to right, var(--guide-color) 8px, transparent 8px) left 16px bottom calc(var(--snap-gap) - 0.5px),
+    linear-gradient(to right, var(--guide-color) 8px, transparent 8px) left 16px bottom 0;
+  background-repeat: no-repeat;
+  background-size: 8px 1px;
 }
 
 h1, h2, h3 {
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 1.5rem;
+}
+
+[data-snap="block"] h1,
+[data-snap="block"] h2,
+[data-snap="block"] h3,
+[data-snap="block"] p {
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
 }
 
 p {

@@ -21,5 +21,49 @@ const { title } = Astro.props;
 		<main>
 			<slot />
 		</main>
+
+		<script>
+			/**
+			 * Smart Grid Snapper
+			 * Automatically pads elements to the nearest grid increment (4rem)
+			 */
+			const snapToGrid = () => {
+				const blocks = document.querySelectorAll('[data-snap="block"]');
+				const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+				const gridSize = 4 * rootFontSize; // 4rem
+
+				blocks.forEach((block) => {
+					if (!(block instanceof HTMLElement)) return;
+					
+					// 1. Reset for measurement
+					block.style.minHeight = '0px';
+					
+					// 2. Measure natural height
+					const naturalHeight = block.offsetHeight;
+					
+					// 3. Calculate next multiple of grid
+					const cellsNeeded = Math.ceil(naturalHeight / gridSize);
+					const snappedHeight = Math.max(gridSize, cellsNeeded * gridSize);
+					
+					// 4. Apply snapped height and centering
+					block.style.minHeight = `${snappedHeight}px`;
+					block.style.display = 'flex';
+					block.style.flexDirection = 'column';
+					block.style.justifyContent = 'center';
+					
+					// 5. Export the "gap" to CSS for measurement lines
+					const gap = (snappedHeight - naturalHeight) / 2;
+					block.style.setProperty('--snap-gap', `${gap}px`);
+				});
+			};
+
+			// Run on load and whenever window resizes
+			window.addEventListener('load', snapToGrid);
+			window.addEventListener('resize', snapToGrid);
+
+			// Also watch for content changes (if any)
+			const observer = new ResizeObserver(snapToGrid);
+			document.querySelectorAll('[data-snap="block"]').forEach(el => observer.observe(el));
+		</script>
 	</body>
 </html>
