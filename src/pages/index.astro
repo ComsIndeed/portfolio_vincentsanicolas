@@ -39,6 +39,60 @@ import { Icon } from 'astro-icon/components';
 			</Chip>
 		</div>
 	</div>
+	</div>
+
+	<div data-snap="block" class="show-snap">
+		<h2>Projects</h2>
+	</div>
+
+	<div class="project-list">
+		<article data-snap="block" class="show-snap project-card">
+			<a href="/llm-json-stream" class="project-link">
+				<div class="project-content">
+					<div class="project-header">
+						<span class="project-name">llm_json_stream (npm & pub.dev)</span>
+						<h3 class="project-title">Open-Source Reactive JSON Stream Parser</h3>
+					</div>
+					<p class="project-description">
+						A published package for the TypeScript and Dart ecosystems designed to handle and parse complex data streams. Designed for high-performance applications where data scannability and value proposition are paramount.
+					</p>
+					<div class="project-tech">
+						<Chip label="TypeScript">
+							<Icon name="simple-icons:typescript" slot="icon" />
+						</Chip>
+						<Chip label="Dart">
+							<Icon name="simple-icons:dart" slot="icon" />
+						</Chip>
+					</div>
+				</div>
+			</a>
+		</article>
+
+		<article data-snap="block" class="show-snap project-card">
+			<a href="/project-2359" class="project-link">
+				<div class="project-content">
+					<div class="project-header">
+						<span class="project-name">Project 2359</span>
+						<h3 class="project-title">AI-Driven Study Application & FSRS Scheduler</h3>
+					</div>
+					<p class="project-description">
+						A full-stack student application integrating a Free Spaced Repetition Scheduler, PDF indexing, and dynamic study material generation. Built with a strict focus on fluid aesthetic experience and architectural complexity.
+					</p>
+					<div class="project-tech">
+						<Chip label="Flutter">
+							<Icon name="simple-icons:flutter" slot="icon" />
+						</Chip>
+						<Chip label="Supabase">
+							<Icon name="simple-icons:supabase" slot="icon" />
+						</Chip>
+						<Chip label="PostgreSQL">
+							<Icon name="simple-icons:postgresql" slot="icon" />
+						</Chip>
+					</div>
+				</div>
+			</a>
+		</article>
+	</div>
 
 	<style>
 		.stack-list {
@@ -47,28 +101,94 @@ import { Icon } from 'astro-icon/components';
 			gap: var(--sub-grid);
 		}
 		
-		ul {
-			list-style: none;
+		.project-list {
+			display: flex;
+			flex-direction: column;
+			gap: 0;
+			margin-top: 2rem;
 		}
 
-		.project-item {
+		.project-card {
+			width: 100% !important;
+			transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+			cursor: pointer;
+		}
+
+		.project-card:hover {
+			background-color: rgba(0, 0, 0, 0.02);
+		}
+
+		.project-link {
 			display: block;
+			text-decoration: none;
+			color: inherit;
+			width: 100%;
+			padding: 3rem 0; /* Ensures it takes at least 2 grid units */
 		}
-	</style>
-	
-	<div data-snap="block" class="show-snap">
-		<h2>Projects</h2>
-	</div>
 
-	<ul>
-		<li data-snap="block" class="show-snap project-item">
-			<a href="/llm-json-stream">LLM JSON Stream</a>
-		</li>
-		<li data-snap="block" class="show-snap project-item">
-			<a href="/project-2359">Project 2359</a>
-		</li>
-		<li data-snap="block" class="show-snap project-item">
-			<a href="/project-2360">Project 2360</a>
-		</li>
-	</ul>
+		.project-link:hover {
+			opacity: 1;
+		}
+
+		.project-content {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+			padding: 0 1rem;
+		}
+
+		.project-header {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.project-title {
+			font-size: 2rem;
+			font-weight: 800;
+			letter-spacing: -0.03em;
+			margin: 0;
+			color: var(--text-color);
+			line-height: 1.1;
+		}
+
+		.project-name {
+			font-size: 0.85rem;
+			font-family: 'JetBrains Mono', monospace;
+			opacity: 0.5;
+			text-transform: uppercase;
+			letter-spacing: 0.1em;
+			font-weight: 500;
+		}
+
+		.project-description {
+			font-size: 1.15rem;
+			line-height: 1.6;
+			color: var(--text-color);
+			opacity: 0.7;
+			max-width: 42rem;
+			margin: 0;
+		}
+
+		.project-tech {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.75rem;
+			
+			/* Hover animation: chips reveal/bounce up */
+			opacity: 0;
+			transform: translateY(10px);
+			transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.project-card:hover .project-tech {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		/* Staggered reveal for chips */
+		.project-card:hover .project-tech > :nth-child(1) { transition-delay: 0.05s; }
+		.project-card:hover .project-tech > :nth-child(2) { transition-delay: 0.1s; }
+		.project-card:hover .project-tech > :nth-child(3) { transition-delay: 0.15s; }
+	</style>
 </Layout>
