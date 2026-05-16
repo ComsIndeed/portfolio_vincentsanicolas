@@ -70,18 +70,21 @@ main {
 
 /* Grid-Block: Base styles for JS-managed snapping units */
 [data-snap="block"] {
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
   position: relative;
   box-sizing: border-box;
 }
 
-/* The dashed boundary of the block */
+/* The dashed boundary of the block - Spans full width even if block is narrow */
 [data-snap="block"]::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+  /* Centering and spanning the viewport to keep the horizontal lines edge-to-edge */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
   height: 100%;
   border-top: 1px dashed var(--grid-color);
   border-bottom: 1px dashed var(--grid-color);
@@ -90,14 +93,15 @@ main {
   z-index: 5;
 }
 
-/* Corner Brackets - Moved to content corners */
+/* Corner Brackets - Moved to content corners with some breathing room */
 .show-snap[data-snap="block"]::after {
   content: "";
   position: absolute;
-  top: var(--snap-gap);
-  bottom: var(--snap-gap);
-  left: 0;
-  right: 0;
+  /* Track the actual content height + add 4px padding */
+  top: calc(var(--snap-gap) - 4px);
+  bottom: calc(var(--snap-gap) - 4px);
+  left: -4px;
+  right: -4px;
   background-image: 
     linear-gradient(to right, var(--text-color) 1.5px, transparent 1.5px),
     linear-gradient(to bottom, var(--text-color) 1.5px, transparent 1.5px),
