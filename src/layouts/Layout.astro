@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	title: string;
@@ -47,6 +48,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+		<ClientRouter />
 	</head>
 	<body>
 		<main>
@@ -69,10 +72,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 				const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
 				const gridSize = 4 * rootFontSize; // 4rem
 
-				// 1. Handle Horizontal "Magic Nudge" for the container
 				if (main) {
 					const containerWidth = 48 * rootFontSize;
-					// Use clientWidth to ignore the scrollbar width for a more accurate center
 					const viewportWidth = document.documentElement.clientWidth;
 					if (viewportWidth > containerWidth) {
 						const sideMargin = (viewportWidth - containerWidth) / 2;
@@ -83,7 +84,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 					}
 				}
 
-				// 2. Handle Vertical Block Snapping
 				blocks.forEach((block) => {
 					if (!(block instanceof HTMLElement)) return;
 					
@@ -102,13 +102,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 				});
 			};
 
-			// Run on load and whenever window resizes
-			window.addEventListener('load', snapToGrid);
-			window.addEventListener('resize', snapToGrid);
+			// Handle ClientRouter lifecycle
+			document.addEventListener('astro:page-load', () => {
+				snapToGrid();
+				
+				// Re-initialize observer on new content
+				const observer = new ResizeObserver(snapToGrid);
+				document.querySelectorAll('[data-snap="block"]').forEach(el => observer.observe(el));
+			});
 
-			// Also watch for content changes (if any)
-			const observer = new ResizeObserver(snapToGrid);
-			document.querySelectorAll('[data-snap="block"]').forEach(el => observer.observe(el));
+			window.addEventListener('resize', snapToGrid);
 		</script>
 	</body>
 </html>
