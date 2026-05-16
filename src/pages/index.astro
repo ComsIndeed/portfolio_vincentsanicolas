@@ -46,38 +46,52 @@ import { Icon } from 'astro-icon/components';
 	</div>
 
 	<div class="project-list">
-		<article data-snap="block" class="show-snap project-card">
-			<a href="/llm-json-stream" class="project-link">
-				<div class="project-content">
-					<div class="project-header">
-						<span class="project-name">llm_json_stream (npm & pub.dev)</span>
-						<h3 class="project-title">Open-Source Reactive JSON Stream Parser</h3>
-					</div>
+		<!-- Project 1 -->
+		<a href="/llm-json-stream" class="project-link">
+			<section class="project-group">
+				<div data-snap="block" class="show-snap project-header-block">
+					<span class="project-name">llm_json_stream (npm & pub.dev)</span>
+					<h3 class="project-title">Open-Source Reactive JSON Stream Parser</h3>
+				</div>
+				<div data-snap="block" class="show-snap project-description-block">
 					<p class="project-description">
 						A published package for the TypeScript and Dart ecosystems designed to handle and parse complex data streams. Designed for high-performance applications where data scannability and value proposition are paramount.
 					</p>
+				</div>
+				<div data-snap="block" class="show-snap project-tech-block">
 					<div class="project-tech">
-						<Chip label="TypeScript">
+						<Chip 
+							label="TypeScript" 
+							href="https://www.npmjs.com/package/llm-json-stream" 
+							linkText="Available on NPM"
+						>
 							<Icon name="simple-icons:typescript" slot="icon" />
 						</Chip>
-						<Chip label="Dart">
+						<Chip 
+							label="Dart" 
+							href="https://pub.dev/packages/llm_json_stream" 
+							linkText="Available on pub.dev"
+						>
 							<Icon name="simple-icons:dart" slot="icon" />
 						</Chip>
 					</div>
 				</div>
-			</a>
-		</article>
+			</section>
+		</a>
 
-		<article data-snap="block" class="show-snap project-card">
-			<a href="/project-2359" class="project-link">
-				<div class="project-content">
-					<div class="project-header">
-						<span class="project-name">Project 2359</span>
-						<h3 class="project-title">AI-Driven Study Application & FSRS Scheduler</h3>
-					</div>
+		<!-- Project 2 -->
+		<a href="/project-2359" class="project-link">
+			<section class="project-group">
+				<div data-snap="block" class="show-snap project-header-block">
+					<span class="project-name">Project 2359</span>
+					<h3 class="project-title">AI-Driven Study Application & FSRS Scheduler</h3>
+				</div>
+				<div data-snap="block" class="show-snap project-description-block">
 					<p class="project-description">
 						A full-stack student application integrating a Free Spaced Repetition Scheduler, PDF indexing, and dynamic study material generation. Built with a strict focus on fluid aesthetic experience and architectural complexity.
 					</p>
+				</div>
+				<div data-snap="block" class="show-snap project-tech-block">
 					<div class="project-tech">
 						<Chip label="Flutter">
 							<Icon name="simple-icons:flutter" slot="icon" />
@@ -90,8 +104,36 @@ import { Icon } from 'astro-icon/components';
 						</Chip>
 					</div>
 				</div>
-			</a>
-		</article>
+			</section>
+		</a>
+
+		<!-- Project 3 -->
+		<a href="/project-2360" class="project-link">
+			<section class="project-group">
+				<div data-snap="block" class="show-snap project-header-block">
+					<span class="project-name">Project 2360 (Flowserract)</span>
+					<h3 class="project-title">Modular Flow-Based Architectural Framework</h3>
+				</div>
+				<div data-snap="block" class="show-snap project-description-block">
+					<p class="project-description">
+						A conceptual exploration of modular flow-based systems designed to bridge the gap between high-level logic and low-level implementation details. Focusing on visual logic flow and rapid prototyping.
+					</p>
+				</div>
+				<div data-snap="block" class="show-snap project-tech-block">
+					<div class="project-tech">
+						<Chip label="React">
+							<Icon name="simple-icons:react" slot="icon" />
+						</Chip>
+						<Chip label="TypeScript">
+							<Icon name="simple-icons:typescript" slot="icon" />
+						</Chip>
+						<Chip label="D3.js">
+							<Icon name="simple-icons:d3dotjs" slot="icon" />
+						</Chip>
+					</div>
+				</div>
+			</section>
+		</a>
 	</div>
 
 	<style>
@@ -104,56 +146,51 @@ import { Icon } from 'astro-icon/components';
 		.project-list {
 			display: flex;
 			flex-direction: column;
-			gap: 0;
+			gap: 4rem; /* Gap between projects */
 			margin-top: 2rem;
 		}
 
-		.project-card {
-			width: 100% !important;
-			transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-			cursor: pointer;
+		.project-link {
+			text-decoration: none;
+			color: inherit;
+			display: block;
 		}
 
-		.project-card:hover {
+		.project-group {
+			display: flex;
+			flex-direction: column;
+			transition: background-color 0.4s ease;
+			padding: 0;
+			position: relative;
+		}
+
+		/* Hover effect on the whole project group */
+		.project-group:hover {
 			background-color: rgba(0, 0, 0, 0.02);
 		}
 
-		.project-link {
-			display: block;
-			text-decoration: none;
-			color: inherit;
-			width: 100%;
-			padding: 3rem 0; /* Ensures it takes at least 2 grid units */
-		}
-
-		.project-link:hover {
-			opacity: 1;
-		}
-
-		.project-content {
-			display: flex;
-			flex-direction: column;
-			gap: 1.5rem;
+		.project-header-block,
+		.project-description-block,
+		.project-tech-block {
+			width: 100% !important;
 			padding: 0 1rem;
 		}
 
-		.project-header {
-			display: flex;
-			flex-direction: column;
+		.project-header-block {
 			gap: 0.5rem;
 		}
 
 		.project-title {
-			font-size: 2rem;
+			font-size: 2.25rem;
 			font-weight: 800;
-			letter-spacing: -0.03em;
+			letter-spacing: -0.04em;
 			margin: 0;
 			color: var(--text-color);
 			line-height: 1.1;
 		}
 
 		.project-name {
-			font-size: 0.85rem;
+			font-size: 0.9rem;
 			font-family: 'JetBrains Mono', monospace;
 			opacity: 0.5;
 			text-transform: uppercase;
@@ -162,11 +199,11 @@ import { Icon } from 'astro-icon/components';
 		}
 
 		.project-description {
-			font-size: 1.15rem;
-			line-height: 1.6;
+			font-size: 0.95rem;
+			line-height: 1.7;
 			color: var(--text-color);
 			opacity: 0.7;
-			max-width: 42rem;
+			max-width: 36rem;
 			margin: 0;
 		}
 
@@ -174,21 +211,6 @@ import { Icon } from 'astro-icon/components';
 			display: flex;
 			flex-wrap: wrap;
 			gap: 0.75rem;
-			
-			/* Hover animation: chips reveal/bounce up */
-			opacity: 0;
-			transform: translateY(10px);
-			transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 		}
-
-		.project-card:hover .project-tech {
-			opacity: 1;
-			transform: translateY(0);
-		}
-
-		/* Staggered reveal for chips */
-		.project-card:hover .project-tech > :nth-child(1) { transition-delay: 0.05s; }
-		.project-card:hover .project-tech > :nth-child(2) { transition-delay: 0.1s; }
-		.project-card:hover .project-tech > :nth-child(3) { transition-delay: 0.15s; }
 	</style>
 </Layout>

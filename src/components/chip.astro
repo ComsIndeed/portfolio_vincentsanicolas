@@ -1,20 +1,44 @@
 ---
+import { Icon } from 'astro-icon/components';
+
 interface Props {
   label: string;
+  href?: string;
+  linkText?: string;
 }
 
-const { label } = Astro.props;
+const { label, href, linkText } = Astro.props;
 const hasIcon = Astro.slots.has('icon');
+const isLink = !!href;
 ---
 
-<div class="chip">
-  {hasIcon && (
-    <div class="icon-slot">
-      <slot name="icon" />
+{isLink ? (
+  <a href={href} class="chip link-chip" target="_blank" rel="noopener noreferrer">
+    {hasIcon && (
+      <div class="icon-slot">
+        <slot name="icon" />
+      </div>
+    )}
+    <div class="label-group">
+      <span class="label">{label}</span>
+      {linkText && (
+        <span class="link-display">
+          {linkText}
+          <Icon name="tabler:external-link" class="external-icon" />
+        </span>
+      )}
     </div>
-  )}
-  <span class="label">{label}</span>
-</div>
+  </a>
+) : (
+  <div class="chip">
+    {hasIcon && (
+      <div class="icon-slot">
+        <slot name="icon" />
+      </div>
+    )}
+    <span class="label">{label}</span>
+  </div>
+)}
 
 <style>
   .chip {
@@ -30,6 +54,7 @@ const hasIcon = Astro.slots.has('icon');
     color: #374151;
     position: relative;
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05); /* Blocky shadow */
+    text-decoration: none;
     
     /* Weathering effect */
     background-image: 
@@ -39,6 +64,10 @@ const hasIcon = Astro.slots.has('icon');
     transition: all 0.1s ease;
     cursor: default;
     user-select: none;
+  }
+
+  .link-chip {
+    cursor: pointer;
   }
 
   /* Blueprint Corner Markers */
@@ -73,6 +102,27 @@ const hasIcon = Astro.slots.has('icon');
     border-color: var(--text-color);
   }
 
+  .label-group {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem; /* Increased spacing as requested */
+  }
+
+  .link-display {
+    font-weight: 400;
+    opacity: 0.6;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .external-icon {
+    width: 0.9rem;
+    height: 0.9rem;
+    opacity: 0.8;
+  }
 
   .icon-slot {
     display: flex;
@@ -91,3 +141,4 @@ const hasIcon = Astro.slots.has('icon');
     white-space: nowrap;
   }
 </style>
+
