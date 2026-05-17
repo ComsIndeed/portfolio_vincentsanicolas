@@ -13,6 +13,12 @@
   --spring-1: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --container-width: 64rem; /* Exactly 32 grid cells for premium wider desktop screens */
+  }
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
