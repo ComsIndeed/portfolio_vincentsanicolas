@@ -95,15 +95,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 				if (main) {
 					// Read container width dynamically from CSS custom properties
+					const viewportWidth = document.documentElement.clientWidth;
 					const containerWidthVar = rootStyle.getPropertyValue('--container-width').trim();
-					let containerWidth = 48 * rootFontSize; // fallback
+					let containerWidth = (viewportWidth >= 1024 ? 64 : 48) * rootFontSize; // dynamic fallback
 					if (containerWidthVar.endsWith('rem')) {
 						containerWidth = parseFloat(containerWidthVar) * rootFontSize;
 					} else if (containerWidthVar.endsWith('px')) {
 						containerWidth = parseFloat(containerWidthVar);
 					}
-
-					const viewportWidth = document.documentElement.clientWidth;
 					if (viewportWidth > containerWidth) {
 						const sideMargin = (viewportWidth - containerWidth) / 2;
 						const nudge = -1 * (sideMargin % gridSize);
