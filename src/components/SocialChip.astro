@@ -6,12 +6,13 @@ interface Props {
   icon: string;
   label: string;
   iconOnly?: boolean;
+  noContainer?: boolean;
 }
 
-const { href, icon, label, iconOnly = false } = Astro.props;
+const { href, icon, label, iconOnly = false, noContainer = false } = Astro.props;
 ---
 
-<a href={href} class:list={["social-chip", { "icon-only": iconOnly }]} target="_blank" rel="noopener noreferrer" aria-label={label}>
+<a href={href} class:list={["social-chip", { "icon-only": iconOnly, "no-container": noContainer }]} target="_blank" rel="noopener noreferrer" aria-label={label}>
   <div class="icon-wrapper">
     <Icon name={icon} />
   </div>
@@ -55,6 +56,7 @@ const { href, icon, label, iconOnly = false } = Astro.props;
     height: 1.1rem;
     color: var(--text-color);
     opacity: 0.8;
+    transition: color 0.2s var(--ease-out-expo);
   }
 
   .label {
@@ -95,6 +97,50 @@ const { href, icon, label, iconOnly = false } = Astro.props;
     box-shadow: none;
     width: 100%;
     height: 100%;
+  }
+
+  /* Styling for No Container (floating style) */
+  .social-chip.no-container {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    overflow: visible;
+  }
+
+  .social-chip.no-container .icon-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .social-chip.no-container .icon-wrapper :global(svg) {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    opacity: 0.75;
+  }
+
+  .social-chip.no-container .label {
+    opacity: 0.75;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    color: var(--text-color);
+  }
+
+  .social-chip.no-container:hover {
+    transform: translateY(-2px);
+  }
+
+  .social-chip.no-container:hover .label {
+    opacity: 1;
+    color: var(--text-color);
+  }
+
+  .social-chip.no-container:hover .icon-wrapper :global(svg) {
+    opacity: 1;
   }
 
   @media (max-width: 768px) {

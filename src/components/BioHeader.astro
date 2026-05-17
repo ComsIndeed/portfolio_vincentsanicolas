@@ -4,59 +4,81 @@ import SocialChip from './SocialChip.astro';
 import { Icon } from 'astro-icon/components';
 ---
 
+<!-- Block 1: Profile Details & Social Action Row (2-Column Split on Desktop, Stacked on Mobile) -->
 <div data-snap="block" class="show-snap header-block" data-snap-align="fill">
 	<div class="header-container">
-		<div class="header-text">
-			<div class="name-social-row">
+		<div class="header-main-flow">
+			
+			<!-- Left Column: Identity Details & Socials -->
+			<div class="identity-col">
 				<h1>Vincent Sanicolas</h1>
-				<div class="social-links">
-					<SocialChip 
-						href="https://github.com/ComsIndeed" 
-						icon="simple-icons:github" 
-						label="GitHub" 
-						iconOnly={true}
-					/>
-					<SocialChip 
-						href="https://www.linkedin.com/in/vincent-sanicolas-2331713a0/" 
-						icon="simple-icons:linkedin" 
-						label="LinkedIn" 
-						iconOnly={true}
-					/>
+				<p class="bio-subtitle">
+					Software Developer | Flutter & Web
+					<br/>
+					<span class="location-text">Metro Manila, Philippines</span>
+				</p>
+				
+				<!-- Action Row: Socials on a single line -->
+				<div class="action-row">
 					<SocialChip 
 						href="mailto:trulysanicolas@gmail.com" 
 						icon="tabler:mail" 
-						label="Email" 
-						iconOnly={true}
+						label="trulysanicolas@gmail.com" 
 					/>
+					<div class="icon-socials">
+						<SocialChip 
+							href="https://github.com/ComsIndeed" 
+							icon="simple-icons:github" 
+							label="GitHub" 
+							iconOnly={true}
+						/>
+						<SocialChip 
+							href="https://www.linkedin.com/in/vincent-sanicolas-2331713a0/" 
+							icon="simple-icons:linkedin" 
+							label="LinkedIn" 
+							iconOnly={true}
+						/>
+					</div>
 				</div>
 			</div>
-			
-			<p class="bio-subtitle">
-				Software Developer | Flutter & Web
-				<br/>
-				Metro Manila, Philippines
-			</p>
 
-			<div class="stack-list">
-				<Chip label="Flutter">
-					<Icon name="simple-icons:flutter" slot="icon" />
-				</Chip>
-				<Chip label="Dart">
-					<Icon name="simple-icons:dart" slot="icon" />
-				</Chip>
-				<Chip label="React">
-					<Icon name="simple-icons:react" slot="icon" />
-				</Chip>
-				<Chip label="TypeScript">
-					<Icon name="simple-icons:typescript" slot="icon" />
-				</Chip>
-				<Chip label="Astro">
-					<Icon name="simple-icons:astro" slot="icon" />
-				</Chip>
-				<Chip label="Supabase">
-					<Icon name="simple-icons:supabase" slot="icon" />
-				</Chip>
+			<!-- Right Column: Photo Avatar Placeholder -->
+			<div class="avatar-col">
+				<div class="avatar-box">
+					<Icon name="tabler:user-code" class="avatar-icon" />
+					<div class="avatar-corner tl"></div>
+					<div class="avatar-corner tr"></div>
+					<div class="avatar-corner bl"></div>
+					<div class="avatar-corner br"></div>
+				</div>
 			</div>
+
+		</div>
+	</div>
+</div>
+
+<!-- Block 2: Tech Stack (Independent full-width grid-snapped block below) -->
+<div data-snap="block" class="show-snap tech-stack-block" data-snap-align="fill">
+	<div class="tech-stack-container">
+		<div class="stack-list">
+			<Chip label="Flutter">
+				<Icon name="simple-icons:flutter" slot="icon" />
+			</Chip>
+			<Chip label="Dart">
+				<Icon name="simple-icons:dart" slot="icon" />
+			</Chip>
+			<Chip label="React">
+				<Icon name="simple-icons:react" slot="icon" />
+			</Chip>
+			<Chip label="TypeScript">
+				<Icon name="simple-icons:typescript" slot="icon" />
+			</Chip>
+			<Chip label="Astro">
+				<Icon name="simple-icons:astro" slot="icon" />
+			</Chip>
+			<Chip label="Supabase">
+				<Icon name="simple-icons:supabase" slot="icon" />
+			</Chip>
 		</div>
 	</div>
 </div>
@@ -66,57 +88,158 @@ import { Icon } from 'astro-icon/components';
 		width: 100%;
 	}
 
-	.name-social-row {
+	/* Desktop Split: Flex container with space-between */
+	.header-main-flow {
 		display: flex;
+		justify-content: space-between;
 		align-items: center;
-		gap: 2.5rem; /* Extra spacing beforehand */
-		flex-wrap: wrap;
-		margin-bottom: 0.75rem;
+		gap: 2rem;
+		width: 100%;
 	}
 
-	.name-social-row h1 {
-		font-size: 2.25rem;
+	.identity-col {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		flex: 1;
+	}
+
+	h1 {
+		font-size: 2.5rem;
 		font-weight: 700;
 		letter-spacing: -0.04em;
 		margin: 0 !important;
-	}
-
-	.social-links {
-		display: flex;
-		gap: 0.75rem;
-		flex-wrap: wrap;
-		justify-content: flex-start; /* Aligned to the left */
+		color: var(--text-color);
 	}
 
 	.bio-subtitle {
-		font-size: 1rem;
-		line-height: 1.5;
-		opacity: 0.7;
-		margin-bottom: 1.5rem !important; /* Space above stack list */
+		font-size: 1.1rem;
+		line-height: 1.6;
+		opacity: 0.75;
+		margin: 0 !important;
+	}
+
+	.location-text {
+		font-size: 0.95rem;
+		opacity: 0.6;
+	}
+
+	/* Action Row: Always on a single line! */
+	.action-row {
+		display: flex;
+		align-items: center;
+		flex-wrap: nowrap; /* Never wrap email and socials */
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	.icon-socials {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.avatar-col {
+		display: flex;
+		justify-content: flex-end;
+		flex-shrink: 0;
+	}
+
+	/* Sleek Blueprint Avatar Styling */
+	.avatar-box {
+		position: relative;
+		width: 7rem;
+		height: 7rem;
+		border: 1px solid var(--text-color);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: rgba(17, 17, 17, 0.02);
+		box-sizing: border-box;
+	}
+
+	/* Outer dashed drafting frame */
+	.avatar-box::before {
+		content: "";
+		position: absolute;
+		inset: -6px;
+		border: 1px dashed rgba(17, 17, 17, 0.15);
+		pointer-events: none;
+	}
+
+	/* Diagnostic crosshairs */
+	.avatar-box::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: 
+			linear-gradient(90deg, transparent 49.5%, rgba(17, 17, 17, 0.05) 50%, transparent 50.5%),
+			linear-gradient(0deg, transparent 49.5%, rgba(17, 17, 17, 0.05) 50%, transparent 50.5%);
+		pointer-events: none;
+	}
+
+	/* Bulletproof sizing for the Icon inside the blueprint box */
+	.avatar-box :global(svg) {
+		width: 3rem !important;
+		height: 3rem !important;
+		color: var(--text-color) !important;
+		opacity: 0.35 !important;
+		z-index: 1;
+	}
+
+	/* Outer visual layout locks */
+	.header-block,
+	.tech-stack-block {
+		width: 100% !important;
+	}
+
+	.tech-stack-container {
+		width: 100%;
+		padding: 1rem 0;
 	}
 
 	.stack-list {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1rem; /* --sub-grid is 1rem */
-		margin-top: 1.5rem;
+		gap: 0.75rem;
 	}
 
-	/* Force the header block to be full width like project blocks */
-	.header-block {
-		width: 100% !important;
-	}
-
+	/* Responsive overrides for Mobile Viewports */
 	@media (max-width: 768px) {
-		.name-social-row {
-			flex-direction: column-reverse;
+		.header-main-flow {
+			flex-direction: column;
 			align-items: flex-start;
-			gap: 0.75rem;
+			gap: 1.5rem;
 		}
 
-		.stack-list {
-			gap: 0.75rem 1.25rem;
-			margin-top: 1.25rem;
+		.identity-col {
+			order: 2; /* Identity and socials stack below avatar */
+		}
+
+		.avatar-col {
+			order: 1; /* Avatar sits at the top */
+			justify-content: flex-start;
+			width: 100%;
+		}
+
+		.avatar-box {
+			width: 6rem;
+			height: 6rem;
+		}
+
+		.avatar-box :global(svg) {
+			width: 2.5rem !important;
+			height: 2.5rem !important;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		.action-row {
+			margin-top: 0.75rem;
+			flex-wrap: wrap; /* Let it wrap gracefully if viewport is exceptionally narrow */
 		}
 	}
 </style>
+
