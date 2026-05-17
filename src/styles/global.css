@@ -5,7 +5,7 @@
   --grid-size: 4rem;
   --sub-grid: 1rem;
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-  --container-width: 48rem; /* Exactly 12 grid cells */
+  --container-width: 64rem; /* Exactly 16 grid cells */
 
   /* Animation Tokens */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
