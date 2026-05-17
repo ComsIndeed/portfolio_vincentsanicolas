@@ -1,18 +1,18 @@
 # Grid Alignment & Smart Snapping Guide
 
-This project uses a custom **Smart Snapping** system designed to align all elements to a visual `4rem` (64px) grid. The system uses a combination of CSS variables, a global JavaScript "Snapper," and specific HTML data attributes.
+This project uses a custom **Smart Snapping** system designed to align all elements to a visual `2rem` (32px) grid. The system uses a combination of CSS variables, a global JavaScript "Snapper," and specific HTML data attributes.
 
 ## 1. The Core System
 The grid is defined in `src/styles/global.css`:
-- `--grid-size: 4rem;`: The primary grid unit.
-- `--sub-grid: 1rem;`: The fractional unit for fine-tuned spacing.
+- `--grid-size: 2rem;`: The primary grid unit.
+- `--sub-grid: 0.5rem;`: The fractional unit for fine-tuned spacing.
 
 ## 2. Making an Element Align
 To make any element or group of elements align to the grid, use the following attributes:
 
 ### `data-snap="block"` (The Vertical Logic)
 Any element with this attribute is picked up by the **Smart Snapper** script in `Layout.astro`.
-- **What it does:** It measures the natural height of the element and "inflates" it to the next multiple of `4rem`.
+- **What it does:** It measures the natural height of the element and "inflates" it to the next multiple of `2rem`.
 - **Centering:** It then uses Flexbox to perfectly center the content vertically within that grid space.
 - **Usage:** Wrap any logical group (a header, a paragraph, or a list) in a `div` or `section` with this attribute.
 

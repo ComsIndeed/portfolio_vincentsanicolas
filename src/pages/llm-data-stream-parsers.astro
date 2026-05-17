@@ -47,27 +47,39 @@ const dataStructures = [
 
 	<!-- Centered Wider Content Container -->
 	<div class="project-content-container">
-		<div data-snap="block" class="show-snap" data-snap-align="fill">
+		
+		<!-- The Problem -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>The Problem</h2>
+			<p>
+				In modern structured output tasks, Large Language Models stream their responses token-by-token in formats like JSON, YAML, or XML. However, standard parsing runtimes require a completed document to parse, throwing fatal syntax or parse errors when fed incomplete fragments. Waiting for the entire stream to finish blocks the user experience behind static spinners, negating the real-time responsive speed of generative applications.
+			</p>
+		</div>
+
+		<!-- The Solution -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>The Solution</h2>
+			<p>
+				To resolve this, we engineered high-performance, incremental stream parsers across five native programming languages. These parsers act as a resilient reactive middleware, intercepting incoming text chunks, scanning syntax states, and automatically healing broken keys, escaping open strings, and closing uncompleted brackets in real-time. This allows frontends to immediately render partial, valid data trees, creating zero-latency, frame-by-frame generative UI experiences.
+			</p>
+			
 			<Tabs items={dataStructures}>
 				<div slot="json" class="tab-content-pane">
-					<h2>Incremental JSON Stream Parsing</h2>
-					<span class="format-tag">TARGET FORMAT: JSON (rfc8259)</span>
+					<h2>Real-Time JSON Parsing</h2>
 					<p class="tab-pane-description">
 						Engineered to scan and reconstruct fractured JSON structures in real-time. As chunks stream from the LLM, the parser reactively synthesizes partial trees, escaping tokens, closing unclosed keys, strings, and brackets to dynamically yield valid JSON objects on the fly.
 					</p>
 				</div>
 
 				<div slot="yaml" class="tab-content-pane">
-					<h2>Incremental YAML Stream Parsing</h2>
-					<span class="format-tag">TARGET FORMAT: YAML (1.2 SPEC)</span>
+					<h2>Real-Time YAML Parsing</h2>
 					<p class="tab-pane-description">
 						Designed to handle indentation-sensitive data blocks dynamically. The YAML parser monitors spacing, carriage returns, and document boundaries, producing incremental key-value pairs without breaking the structural indentation rules crucial to YAML parser runtimes.
 					</p>
 				</div>
 
 				<div slot="xml" class="tab-content-pane">
-					<h2>Incremental XML Stream Parsing</h2>
-					<span class="format-tag">TARGET FORMAT: XML (w3c specification)</span>
+					<h2>Real-Time XML Parsing</h2>
 					<p class="tab-pane-description">
 						Optimized to parse streaming document trees. By tracking open and closed tags, nested attributes, and text nodes incrementally, the XML parser closes tags on-the-fly to render live, structured document interfaces without parsing errors.
 					</p>
@@ -90,16 +102,6 @@ const dataStructures = [
 		font-weight: 600;
 		color: var(--text-color);
 		letter-spacing: -0.02em;
-	}
-
-	.format-tag {
-		font-family: 'JetBrains Mono', monospace;
-		font-size: 0.8rem;
-		opacity: 0.5;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-		font-weight: 600;
-		margin-bottom: 0.5rem;
 	}
 
 	.tab-pane-description {

@@ -2,10 +2,10 @@
   --bg-color: #fafafa;
   --text-color: #111111;
   --grid-color: rgba(0, 0, 0, 0.175);
-  --grid-size: 4rem;
-  --sub-grid: 1rem;
+  --grid-size: 2rem;
+  --sub-grid: 0.5rem;
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
-  --container-width: 64rem; /* Exactly 16 grid cells */
+  --container-width: 48rem; /* Exactly 24 grid cells */
 
   /* Animation Tokens */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -247,5 +247,5 @@ a:active {
 }
 
 nav {
-  margin-bottom: 4rem;
+  margin-bottom: var(--grid-size);
 }

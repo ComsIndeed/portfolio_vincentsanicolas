@@ -76,16 +76,33 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<script>
 			/**
 			 * Smart Grid Snapper
-			 * Automatically pads elements to the nearest grid increment (4rem)
+			 * Automatically pads elements to the nearest grid increment
 			 */
 			const snapToGrid = () => {
 				const blocks = document.querySelectorAll('[data-snap="block"]');
 				const main = document.querySelector('main');
 				const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
-				const gridSize = 4 * rootFontSize; // 4rem
+				const rootStyle = getComputedStyle(document.documentElement);
+				
+				// Read grid size dynamically from CSS custom properties
+				const gridSizeVar = rootStyle.getPropertyValue('--grid-size').trim();
+				let gridSize = 3 * rootFontSize; // 3rem fallback
+				if (gridSizeVar.endsWith('rem')) {
+					gridSize = parseFloat(gridSizeVar) * rootFontSize;
+				} else if (gridSizeVar.endsWith('px')) {
+					gridSize = parseFloat(gridSizeVar);
+				}
 
 				if (main) {
-					const containerWidth = 48 * rootFontSize;
+					// Read container width dynamically from CSS custom properties
+					const containerWidthVar = rootStyle.getPropertyValue('--container-width').trim();
+					let containerWidth = 48 * rootFontSize; // fallback
+					if (containerWidthVar.endsWith('rem')) {
+						containerWidth = parseFloat(containerWidthVar) * rootFontSize;
+					} else if (containerWidthVar.endsWith('px')) {
+						containerWidth = parseFloat(containerWidthVar);
+					}
+
 					const viewportWidth = document.documentElement.clientWidth;
 					if (viewportWidth > containerWidth) {
 						const sideMargin = (viewportWidth - containerWidth) / 2;
