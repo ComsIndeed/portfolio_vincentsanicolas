@@ -1,70 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BioHeader from '../components/BioHeader.astro';
 import Chip from '../components/chip.astro';
-import SocialChip from '../components/SocialChip.astro';
 import { Icon } from 'astro-icon/components';
 ---
 
 <Layout title="Vincent Sanicolas | Portfolio">
-	<div data-snap="block" class="show-snap header-block">
-		<div class="header-container">
-			<div class="header-text">
-				<div class="name-social-row">
-					<h1>Vincent Sanicolas</h1>
-					<div class="social-links">
-						<SocialChip 
-							href="https://github.com/ComsIndeed" 
-							icon="simple-icons:github" 
-							label="GitHub" 
-							iconOnly={true}
-						/>
-						<SocialChip 
-							href="https://www.linkedin.com/in/vincent-sanicolas-2331713a0/" 
-							icon="simple-icons:linkedin" 
-							label="LinkedIn" 
-							iconOnly={true}
-						/>
-						<SocialChip 
-							href="mailto:trulysanicolas@gmail.com" 
-							icon="tabler:mail" 
-							label="Email" 
-							iconOnly={true}
-						/>
-					</div>
-				</div>
-				<p>
-					Software Developer | Flutter & Web
-					<br/>
-					Metro Manila, Philippines
-				</p>
-			</div>
-		</div>
-	</div>
+	<!-- Bio Summary, Social links, & Tech Stack Unified Bio Block -->
+	<BioHeader />
 
-	<div data-snap="block" class="show-snap">
-		<div class="stack-list">
-			<Chip label="Flutter">
-				<Icon name="simple-icons:flutter" slot="icon" />
-			</Chip>
-			<Chip label="Dart">
-				<Icon name="simple-icons:dart" slot="icon" />
-			</Chip>
-			<Chip label="React">
-				<Icon name="simple-icons:react" slot="icon" />
-			</Chip>
-			<Chip label="TypeScript">
-				<Icon name="simple-icons:typescript" slot="icon" />
-			</Chip>
-			<Chip label="Astro">
-				<Icon name="simple-icons:astro" slot="icon" />
-			</Chip>
-			<Chip label="Supabase">
-				<Icon name="simple-icons:supabase" slot="icon" />
-			</Chip>
-		</div>
-	</div>
-
-	<div data-snap="block" style="height:2rem"/>
+	<!-- Visual Spacer aligning to grid Snapping -->
+	<div data-snap="block" class="spacer-block" />
 	
 	<div data-snap="block" class="show-snap">
 		<h2>Projects</h2>
@@ -189,40 +135,6 @@ import { Icon } from 'astro-icon/components';
 	</div>
 
 	<style>
-		.stack-list {
-			display: flex;
-			flex-wrap: wrap;
-			gap: var(--sub-grid);
-		}
-
-		.header-container {
-			width: 100%;
-		}
-
-		.name-social-row {
-			display: flex;
-			align-items: center;
-			gap: 2.5rem; /* Extra spacing beforehand */
-			flex-wrap: wrap;
-			margin-bottom: 0.75rem;
-		}
-
-		.name-social-row h1 {
-			margin: 0 !important;
-		}
-
-		/* Force the header block to be full width like project blocks */
-		.header-block {
-			width: 100% !important;
-		}
-
-		.social-links {
-			display: flex;
-			gap: 0.75rem;
-			flex-wrap: wrap;
-			justify-content: flex-start; /* Aligned to the left */
-		}
-		
 		.project-list {
 			display: flex;
 			flex-direction: column;
@@ -353,12 +265,6 @@ import { Icon } from 'astro-icon/components';
 			line-height: 1.1;
 		}
 
-		h1 {
-			font-size: 2.25rem;
-			font-weight: 700;
-			letter-spacing: -0.04em;
-		}
-
 		.project-name {
 			font-size: 0.9rem;
 			font-family: 'JetBrains Mono', monospace;
@@ -384,17 +290,11 @@ import { Icon } from 'astro-icon/components';
 			gap: 0.75rem;
 		}
 
+		.spacer-block {
+			height: 2rem;
+		}
+
 		@media (max-width: 768px) {
-			.name-social-row {
-				flex-direction: column-reverse;
-				align-items: flex-start;
-				gap: 0.75rem;
-			}
-
-			.stack-list {
-				gap: 0.75rem 1.25rem;
-			}
-
 			.project-group {
 				grid-template-columns: 1fr;
 				row-gap: 1.5rem;
