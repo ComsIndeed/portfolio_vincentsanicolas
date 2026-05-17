@@ -5,16 +5,16 @@ import { Icon } from 'astro-icon/components';
 ---
 
 <Layout 
-	title="llm_json_stream | Vincent Sanicolas" 
-	description="An open-source reactive JSON stream parser for TypeScript and Dart. High-performance handling of complex LLM data streams."
+	title="LLM JSON Stream | Vincent Sanicolas" 
+	description="An incremental JSON stream parser for TypeScript and Dart, enabling reactive rendering of LLM data streams."
 	showBack={true}
 >
 	<!-- Title Header with Links Below Subtitle -->
 	<div data-snap="block" class="show-snap project-detail-header" data-snap-align="fill">
 		<div class="header-content">
 			<span class="project-mono-label">NPM & PUB.DEV PACKAGE</span>
-			<h1>LLM_JSON_STREAM</h1>
-			<p class="subtitle">Open-Source Reactive JSON Stream Parser for TypeScript & Dart</p>
+			<h1>LLM JSON Stream</h1>
+			<p class="subtitle">An incremental JSON stream parser for TypeScript and Dart, enabling reactive rendering of LLM data streams.</p>
 			
 			<div class="project-links">
 				<Chip 
@@ -130,13 +130,13 @@ for await (const chunk of llmStream) {
 			display: flex;
 			gap: 0.75rem;
 			flex-wrap: wrap;
-			margin-top: 1.5rem; /* Generous top margin under subtitle */
+			margin-top: 1.5rem;
 		}
 
 		/* Centered and wider content container */
 		.project-content-container {
 			max-width: 52rem;
-			margin: 1.5rem auto 0; /* Margin top to separate cleanly from the header */
+			margin: 1.5rem auto 0;
 			display: flex;
 			flex-direction: column;
 			gap: 2rem;
@@ -262,6 +262,19 @@ for await (const chunk of llmStream) {
 		}
 
 		@media (max-width: 768px) {
+			:global(main) {
+				padding-left: 1rem !important;
+				padding-right: 1rem !important;
+			}
+
+			.section-block {
+				padding: 1.25rem !important;
+			}
+
+			.section-block p {
+				text-align: left !important;
+			}
+
 			.hero-image-container {
 				float: none;
 				width: 100%;

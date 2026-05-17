@@ -107,13 +107,13 @@ import { Icon } from 'astro-icon/components';
 			display: flex;
 			gap: 0.75rem;
 			flex-wrap: wrap;
-			margin-top: 1.5rem; /* Generous top margin under subtitle */
+			margin-top: 1.5rem;
 		}
 
 		/* Centered and wider content container */
 		.project-content-container {
 			max-width: 52rem;
-			margin: 1.5rem auto 0; /* Margin top to separate cleanly from the header */
+			margin: 1.5rem auto 0;
 			display: flex;
 			flex-direction: column;
 			gap: 2rem;
@@ -223,6 +223,19 @@ import { Icon } from 'astro-icon/components';
 		}
 
 		@media (max-width: 768px) {
+			:global(main) {
+				padding-left: 1rem !important;
+				padding-right: 1rem !important;
+			}
+
+			.section-block {
+				padding: 1.25rem !important;
+			}
+
+			.section-block p {
+				text-align: left !important;
+			}
+
 			.hero-image-container {
 				float: none;
 				width: 100%;
