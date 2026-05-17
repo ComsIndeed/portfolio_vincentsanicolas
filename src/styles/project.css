@@ -1,0 +1,211 @@
+/* Project Page Base Header Styling */
+.project-detail-header {
+	width: 100% !important;
+	margin-bottom: 2rem;
+	gap: 0.75rem;
+}
+
+.project-mono-label {
+	font-size: 0.9rem;
+	font-family: 'JetBrains Mono', monospace;
+	opacity: 0.5;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-weight: 500;
+}
+
+.subtitle {
+	font-size: 1.25rem;
+	opacity: 0.7;
+	margin-top: 0.25rem;
+	font-weight: 500;
+	line-height: 1.3;
+	margin-bottom: 1.25rem !important;
+}
+
+.project-links {
+	display: flex;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	margin-top: 1.5rem;
+}
+
+/* Centered and wider content container */
+.project-content-container {
+	max-width: 52rem;
+	margin: 1.5rem auto 0;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	width: 100%;
+}
+
+.section-block {
+	width: 100% !important;
+	padding: 2rem;
+	background: rgba(255, 255, 255, 0.02);
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	transition: border-color 150ms var(--ease-out-expo), background-color 150ms var(--ease-out-expo);
+	gap: 1rem;
+}
+
+.section-block:hover {
+	border-color: rgba(0, 0, 0, 0.15);
+	background-color: rgba(0, 0, 0, 0.01);
+}
+
+.section-block h2 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	color: var(--text-color);
+}
+
+.section-block p {
+	font-size: 0.98rem;
+	line-height: 1.75;
+	color: var(--text-color);
+	opacity: 0.75;
+	text-align: justify;
+}
+
+/* Float layout wrapper for the inline wrapping */
+.overview-flow-wrapper {
+	display: flow-root;
+	width: 100%;
+}
+
+.overview-flow-wrapper h2 {
+	margin-bottom: 1rem !important;
+}
+
+/* Hero image floated right to allow text wrapping inline */
+.hero-image-container {
+	float: right;
+	width: 320px;
+	aspect-ratio: 4 / 3;
+	margin-left: 2.25rem;
+	margin-bottom: 1.5rem;
+	background: rgba(0, 0, 0, 0.015);
+	border: 1px dashed rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+	transition: border-color 150ms var(--ease-out-expo), background-color 150ms var(--ease-out-expo);
+}
+
+.section-block:hover .hero-image-container {
+	border-color: rgba(0, 0, 0, 0.25);
+	background-color: rgba(0, 0, 0, 0.03);
+}
+
+.project-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0.85;
+	mix-blend-mode: multiply;
+	transition: opacity 150ms var(--ease-out-expo), transform 150ms var(--ease-out-expo);
+}
+
+.section-block:hover .project-image {
+	opacity: 1;
+	transform: scale(1.02);
+}
+
+/* Code example specific styles (from llm_json_stream) */
+.usage-description {
+	margin-bottom: 1.5rem !important;
+}
+
+.code-example-container {
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	background: #1e1e1e;
+	color: #d4d4d4;
+	font-family: 'JetBrains Mono', monospace;
+	width: 100%;
+	box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
+	margin-top: 1rem;
+}
+
+.code-tab {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.5rem 1rem;
+	background: #252526;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+	font-size: 0.8rem;
+	font-weight: 500;
+	color: #9cdcfe;
+}
+
+.code-tab-icon {
+	width: 1rem;
+	height: 1rem;
+}
+
+.code-block {
+	margin: 0;
+	padding: 1rem;
+	overflow-x: auto;
+	font-size: 0.85rem;
+	line-height: 1.5;
+}
+
+.code-block code {
+	font-family: inherit;
+}
+
+/* Capability list specific styles (from project-2359) */
+.capabilities-list {
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	margin-top: 0.5rem;
+}
+
+.capability-item {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+
+.capability-title {
+	font-size: 1.05rem;
+	font-weight: 600;
+	color: var(--text-color);
+	font-family: 'JetBrains Mono', monospace;
+	letter-spacing: -0.01em;
+}
+
+.capability-item p {
+	font-size: 0.92rem;
+	opacity: 0.7;
+	line-height: 1.6;
+}
+
+/* Mobile Responsive Optimizations */
+@media (max-width: 768px) {
+	:global(main) {
+		padding-left: 1rem !important;
+		padding-right: 1rem !important;
+	}
+
+	.section-block {
+		padding: 1.25rem !important;
+	}
+
+	.section-block p {
+		text-align: left !important;
+	}
+
+	.hero-image-container {
+		float: none;
+		width: 100%;
+		margin-left: 0;
+		margin-bottom: 1.5rem;
+	}
+}
