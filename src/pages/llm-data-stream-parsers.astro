@@ -67,6 +67,7 @@ const dataStructures = [
 			</p>
 			
 			<Tabs items={dataStructures}>
+				<!-- JSON Tab -->
 				<div slot="json" class="tab-content-pane">
 					<h2>Real-Time JSON Parsing</h2>
 					<p class="tab-pane-description">
@@ -201,7 +202,7 @@ parser.<span class="token function">getStringProperty</span>(<span class="token 
 &#125;
 
 <span class="token comment">// Direct suspend await</span>
-<span class="token keyword">val</span> completeBio = parser.<span class="token function">getStringProperty</span>(<span class="token string">"user.bio"</span>).<span class="token function">await</span>()</code></pre>
+<span class="token keyword">val</span> completeBio <span class="token operator">=</span> parser.<span class="token function">getStringProperty</span>(<span class="token string">"user.bio"</span>).<span class="token function">await</span>()</code></pre>
 									</div>
 								</div>
 							</div>
@@ -209,6 +210,7 @@ parser.<span class="token function">getStringProperty</span>(<span class="token 
 					</div>
 				</div>
 
+				<!-- YAML Tab -->
 				<div slot="yaml" class="tab-content-pane">
 					<h2>Real-Time YAML Parsing</h2>
 					<p class="tab-pane-description">
@@ -220,7 +222,13 @@ parser.<span class="token function">getStringProperty</span>(<span class="token 
 						<h3 class="usage-header">Usage</h3>
 						<div class="lang-switcher" data-switcher="yaml">
 							<div class="switcher-buttons">
-								<button class="switcher-btn active" data-lang="ts" type="button">
+								<button class="switcher-btn active" data-lang="dart" type="button">
+									<Icon name="simple-icons:dart" class="switcher-icon" />
+									<span class="switcher-label">Dart</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+								<button class="switcher-btn" data-lang="ts" type="button">
 									<Icon name="simple-icons:typescript" class="switcher-icon" />
 									<span class="switcher-label">TypeScript</span>
 									<div class="switcher-corner-tl"></div>
@@ -232,11 +240,38 @@ parser.<span class="token function">getStringProperty</span>(<span class="token 
 									<div class="switcher-corner-tl"></div>
 									<div class="switcher-corner-br"></div>
 								</button>
+								<button class="switcher-btn" data-lang="csharp" type="button">
+									<Icon name="simple-icons:csharp" class="switcher-icon" />
+									<span class="switcher-label">C#</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+								<button class="switcher-btn" data-lang="kotlin" type="button">
+									<Icon name="simple-icons:kotlin" class="switcher-icon" />
+									<span class="switcher-label">Kotlin</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
 							</div>
 							
 							<div class="switcher-panes">
+								<!-- DART -->
+								<div class="switcher-pane active" data-lang-pane="dart">
+									<div class="code-wrapper">
+										<span class="code-title">DART USAGE</span>
+										<pre><code><span class="token keyword">import</span> <span class="token string">'package:llm_yaml_stream/llm_yaml_stream.dart'</span>;
+
+<span class="token keyword">final</span> parser <span class="token operator">=</span> <span class="token class">YamlStreamParser</span>(chunkStream);
+
+<span class="token comment">// Reactive property chunk extraction</span>
+parser.<span class="token function">getStringProperty</span>(<span class="token string">'config.environments'</span>).stream.<span class="token function">listen</span>((chunk) &#123;
+  <span class="token function">print</span>(<span class="token string">'YAML chunk: $chunk'</span>);
+&#125;);</code></pre>
+									</div>
+								</div>
+
 								<!-- TS -->
-								<div class="switcher-pane active" data-lang-pane="ts">
+								<div class="switcher-pane" data-lang-pane="ts">
 									<div class="code-wrapper">
 										<span class="code-title">TYPESCRIPT USAGE</span>
 										<pre><code><span class="token keyword">import</span> &#123; <span class="token class">YamlStreamParser</span> &#125; <span class="token keyword">from</span> <span class="token string">'llm-yaml-stream-ts'</span>;
@@ -263,11 +298,43 @@ parser <span class="token operator">=</span> <span class="token class">YamlStrea
     <span class="token function">print</span>(f<span class="token string">"YAML chunk: &#123;chunk&#125;"</span>)</code></pre>
 									</div>
 								</div>
+
+								<!-- C# -->
+								<div class="switcher-pane" data-lang-pane="csharp">
+									<div class="code-wrapper">
+										<span class="code-title">C# USAGE</span>
+										<pre><code><span class="token keyword">using</span> LlmYamlStream;
+
+<span class="token keyword">var</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class">YamlStreamParser</span>(responseStream);
+
+<span class="token comment">// Reactive async stream iteration</span>
+<span class="token keyword">await foreach</span> (<span class="token keyword">var</span> chunk <span class="token keyword">in</span> parser.<span class="token function">GetStringProperty</span>(<span class="token string">"config.environments"</span>))
+&#123;
+    <span class="token class">Console</span>.<span class="token function">WriteLine</span>(<span class="token string">"YAML chunk: "</span> <span class="token operator">+</span> chunk);
+&#125;</code></pre>
+									</div>
+								</div>
+
+								<!-- KOTLIN -->
+								<div class="switcher-pane" data-lang-pane="kotlin">
+									<div class="code-wrapper">
+										<span class="code-title">KOTLIN USAGE</span>
+										<pre><code><span class="token keyword">import</span> llm.yaml.stream.<span class="token class">YamlStreamParser</span>
+
+<span class="token keyword">val</span> parser <span class="token operator">=</span> <span class="token class">YamlStreamParser</span>(responseFlow)
+
+<span class="token comment">// Reactive Flow collection for UI mapping</span>
+parser.<span class="token function">getStringProperty</span>(<span class="token string">"config.environments"</span>).flow.<span class="token function">collect</span> &#123; chunk <span class="token operator">-&gt;</span>
+    <span class="token function">println</span>(<span class="token string">"YAML chunk: \$chunk"</span>)
+&#125;</code></pre>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
+				<!-- XML Tab -->
 				<div slot="xml" class="tab-content-pane">
 					<h2>Real-Time XML Parsing</h2>
 					<p class="tab-pane-description">
@@ -279,7 +346,13 @@ parser <span class="token operator">=</span> <span class="token class">YamlStrea
 						<h3 class="usage-header">Usage</h3>
 						<div class="lang-switcher" data-switcher="xml">
 							<div class="switcher-buttons">
-								<button class="switcher-btn active" data-lang="ts" type="button">
+								<button class="switcher-btn active" data-lang="dart" type="button">
+									<Icon name="simple-icons:dart" class="switcher-icon" />
+									<span class="switcher-label">Dart</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+								<button class="switcher-btn" data-lang="ts" type="button">
 									<Icon name="simple-icons:typescript" class="switcher-icon" />
 									<span class="switcher-label">TypeScript</span>
 									<div class="switcher-corner-tl"></div>
@@ -291,11 +364,38 @@ parser <span class="token operator">=</span> <span class="token class">YamlStrea
 									<div class="switcher-corner-tl"></div>
 									<div class="switcher-corner-br"></div>
 								</button>
+								<button class="switcher-btn" data-lang="csharp" type="button">
+									<Icon name="simple-icons:csharp" class="switcher-icon" />
+									<span class="switcher-label">C#</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+								<button class="switcher-btn" data-lang="kotlin" type="button">
+									<Icon name="simple-icons:kotlin" class="switcher-icon" />
+									<span class="switcher-label">Kotlin</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
 							</div>
 							
 							<div class="switcher-panes">
+								<!-- DART -->
+								<div class="switcher-pane active" data-lang-pane="dart">
+									<div class="code-wrapper">
+										<span class="code-title">DART USAGE</span>
+										<pre><code><span class="token keyword">import</span> <span class="token string">'package:llm_xml_stream/llm_xml_stream.dart'</span>;
+
+<span class="token keyword">final</span> parser <span class="token operator">=</span> <span class="token class">XmlStreamParser</span>(chunkStream);
+
+<span class="token comment">// Reactive text node chunk extraction</span>
+parser.<span class="token function">getElementText</span>(<span class="token string">'channel.item'</span>).stream.<span class="token function">listen</span>((chunk) &#123;
+  <span class="token function">print</span>(<span class="token string">'XML tag chunk: $chunk'</span>);
+&#125;);</code></pre>
+									</div>
+								</div>
+
 								<!-- TS -->
-								<div class="switcher-pane active" data-lang-pane="ts">
+								<div class="switcher-pane" data-lang-pane="ts">
 									<div class="code-wrapper">
 										<span class="code-title">TYPESCRIPT USAGE</span>
 										<pre><code><span class="token keyword">import</span> &#123; <span class="token class">XmlStreamParser</span> &#125; <span class="token keyword">from</span> <span class="token string">'llm-xml-stream-ts'</span>;
@@ -320,6 +420,37 @@ parser <span class="token operator">=</span> <span class="token class">XmlStream
 <span class="token comment"># Track open and closed tags and output incremental text nodes</span>
 <span class="token keyword">async for</span> chunk <span class="token keyword">in</span> parser.<span class="token function">get_element_text</span>(<span class="token string">"channel.item"</span>):
     <span class="token function">print</span>(f<span class="token string">"XML tag chunk: &#123;chunk&#125;"</span>)</code></pre>
+									</div>
+								</div>
+
+								<!-- C# -->
+								<div class="switcher-pane" data-lang-pane="csharp">
+									<div class="code-wrapper">
+										<span class="code-title">C# USAGE</span>
+										<pre><code><span class="token keyword">using</span> LlmXmlStream;
+
+<span class="token keyword">var</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class">XmlStreamParser</span>(responseStream);
+
+<span class="token comment">// Reactive async stream iteration</span>
+<span class="token keyword">await foreach</span> (<span class="token keyword">var</span> chunk <span class="token keyword">in</span> parser.<span class="token function">GetElementText</span>(<span class="token string">"channel.item"</span>))
+&#123;
+    <span class="token class">Console</span>.<span class="token function">WriteLine</span>(<span class="token string">"XML tag chunk: "</span> <span class="token operator">+</span> chunk);
+&#125;</code></pre>
+									</div>
+								</div>
+
+								<!-- KOTLIN -->
+								<div class="switcher-pane" data-lang-pane="kotlin">
+									<div class="code-wrapper">
+										<span class="code-title">KOTLIN USAGE</span>
+										<pre><code><span class="token keyword">import</span> llm.xml.stream.<span class="token class">XmlStreamParser</span>
+
+<span class="token keyword">val</span> parser <span class="token operator">=</span> <span class="token class">XmlStreamParser</span>(responseFlow)
+
+<span class="token comment">// Reactive Flow collection for UI mapping</span>
+parser.<span class="token function">getElementText</span>(<span class="token string">"channel.item"</span>).flow.<span class="token function">collect</span> &#123; chunk <span class="token operator">-&gt;</span>
+    <span class="token function">println</span>(<span class="token string">"XML tag chunk: \$chunk"</span>)
+&#125;</code></pre>
 									</div>
 								</div>
 							</div>
