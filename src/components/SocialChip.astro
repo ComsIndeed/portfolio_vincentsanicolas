@@ -97,6 +97,36 @@ const { href, icon, label, iconOnly = false } = Astro.props;
     height: 100%;
   }
 
+  @media (max-width: 768px) {
+    .social-chip.icon-only {
+      background: transparent !important;
+      border-color: transparent !important;
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+      width: auto !important;
+      height: auto !important;
+    }
+
+    .social-chip.icon-only::before {
+      display: none !important;
+    }
+
+    .social-chip.icon-only .icon-wrapper :global(svg) {
+      width: 1.4rem !important;
+      height: 1.4rem !important;
+      opacity: 0.7;
+    }
+
+    .social-chip.icon-only:hover {
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    .social-chip.icon-only:hover .icon-wrapper :global(svg) {
+      opacity: 1;
+    }
+  }
+
   /* Matching the app's weathering if possible */
   .social-chip::before {
     content: "";

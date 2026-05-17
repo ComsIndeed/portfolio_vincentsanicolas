@@ -147,5 +147,28 @@ const isLink = !!href;
   .label {
     white-space: nowrap;
   }
+
+  @media (max-width: 768px) {
+    .chip {
+      background-color: transparent !important;
+      background-image: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      font-size: 0.85rem !important;
+      gap: 0.35rem !important;
+    }
+
+    .chip::before,
+    .chip::after {
+      display: none !important;
+    }
+
+    .chip:hover {
+      transform: none !important;
+      box-shadow: none !important;
+      border-color: transparent !important;
+    }
+  }
 </style>
 
