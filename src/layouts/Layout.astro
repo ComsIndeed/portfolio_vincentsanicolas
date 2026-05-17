@@ -86,7 +86,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 				
 				// Read grid size dynamically from CSS custom properties
 				const gridSizeVar = rootStyle.getPropertyValue('--grid-size').trim();
-				let gridSize = 3 * rootFontSize; // 3rem fallback
+				let gridSize = 2 * rootFontSize; // 2rem fallback
 				if (gridSizeVar.endsWith('rem')) {
 					gridSize = parseFloat(gridSizeVar) * rootFontSize;
 				} else if (gridSizeVar.endsWith('px')) {
