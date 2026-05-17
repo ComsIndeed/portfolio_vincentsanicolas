@@ -16,23 +16,35 @@ Any element with this attribute is picked up by the **Smart Snapper** script in 
 - **Centering:** It then uses Flexbox to perfectly center the content vertically within that grid space.
 - **Usage:** Wrap any logical group (a header, a paragraph, or a list) in a `div` or `section` with this attribute.
 
+### `data-snap-align="left | center | right | fill"` (The Horizontal Logic)
+Controls how the snapped block behaves horizontally within the grid container:
+- **`left`** (Default): Snaps to the content width and aligns to the **center left** (vertically centered on the grid cell, horizontally left-aligned). Brackets hug the content.
+- **`center`**: Snaps to the content width and centers horizontally. Brackets hug the centered content.
+- **`right`**: Snaps to the content width and aligns to the right. Brackets hug the content on the right.
+- **`fill`**: Forces the block to stretch `100%` of the width. Brackets stretch edge-to-edge.
+
 ### `class="show-snap"` (The Visual Logic)
 Adding this class enables the **Blueprint Design** features:
-- **Corner Brackets:** Bold L-shaped markers that hug the content corners.
+- **Corner Brackets:** Bold L-shaped markers that hug the content corners (with custom 4px offset).
 - **Dimension Lines:** Dotted lines that measure the "gap" between the content and the horizontal grid lines.
 - **Horizontal Lines:** Dashed lines that span the full width of the viewport.
 
 ## 3. Implementation Example
 
 ```html
-<!-- A granular group that will occupy at least 4rem of vertical space -->
-<div data-snap="block" class="show-snap">
-    <h1>Project Title</h1>
+<!-- Pinned to the top-left, content hugged -->
+<div data-snap="block" data-snap-align="left" class="show-snap">
+    <h1>Vincent Sanicolas</h1>
 </div>
 
-<!-- A larger group that might occupy 8rem or 12rem depending on text length -->
-<div data-snap="block" class="show-snap">
-    <p>This long description will be measured by JS and padded to the grid.</p>
+<!-- Centered content with brackets hugging only the centered text -->
+<div data-snap="block" data-snap-align="center" class="show-snap">
+    <p>This paragraph is centered on the blueprint.</p>
+</div>
+
+<!-- Full-width block with brackets reaching the layout edges -->
+<div data-snap="block" data-snap-align="fill" class="show-snap">
+    <h2>Full Width Section</h2>
 </div>
 ```
 

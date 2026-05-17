@@ -79,6 +79,28 @@ main {
   max-width: 100%;
   position: relative;
   box-sizing: border-box;
+  margin-right: auto; /* Default to left-alignment (horizontally left, vertically centered) */
+  margin-left: 0;
+}
+
+/* Declarative Horizontal Alignment options */
+[data-snap="block"][data-snap-align="center"] {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+[data-snap="block"][data-snap-align="right"] {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+[data-snap="block"][data-snap-align="left"] {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+[data-snap="block"][data-snap-align="fill"] {
+  width: 100%;
 }
 
 /* The dashed boundary of the block - Spans full width even if block is narrow */
