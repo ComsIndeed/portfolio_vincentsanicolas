@@ -49,6 +49,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+		<!-- Inline script to mark JS-active state immediately, preventing FOUSC -->
+		<script is:inline>
+			document.documentElement.classList.add('js-active');
+		</script>
+
+		<!-- Inline style to synchronously hide main during dev server styling dynamic loads -->
+		<style is:inline>
+			html.js-active:not(.grid-snapped) main {
+				opacity: 0 !important;
+			}
+		</style>
+
 		<ClientRouter />
 	</head>
 	<body>
@@ -104,7 +116,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 			// Handle ClientRouter lifecycle
 			document.addEventListener('astro:page-load', () => {
+				// Instantly hide the page state to prepare for snapping calculations
+				document.documentElement.classList.remove('grid-snapped');
+				
 				snapToGrid();
+				
+				// Reveal now that positioning is perfect and finalized
+				document.documentElement.classList.add('grid-snapped');
 				
 				// Re-initialize observer on new content
 				const observer = new ResizeObserver(snapToGrid);

@@ -70,7 +70,16 @@ main {
   padding: var(--grid-size) 2rem;
   position: relative;
   z-index: 10;
-  /* transform is now handled by JS for better cross-browser math */
+  
+  /* Smooth fade-in once snapping is locked in */
+  opacity: 1;
+  transition: opacity 150ms var(--ease-out-expo);
+}
+
+/* Hide content initially when JS is processing grid measurements */
+html.js-active:not(.grid-snapped) main {
+  opacity: 0;
+  transition: none; /* No transition while shifting */
 }
 
 /* Grid-Block: Base styles for JS-managed snapping units */

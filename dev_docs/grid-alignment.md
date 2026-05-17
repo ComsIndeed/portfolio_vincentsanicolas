@@ -56,6 +56,13 @@ Horizontal alignment is handled automatically at the `<main>` level.
 ## 5. Scrolling Context
 The background grid is set to `position: absolute` on the `body`. This ensures that as the user scrolls, the grid travels with the content, maintaining the "snapped" alignment for all elements, even those deep within the page.
 
+## 6. Flash of Un-Snapped Content (FOUSC) Prevention
+To prevent layout shifting or "jumps" during initial page loads and transitions:
+- An inline script in the `<head>` of `Layout.astro` immediately marks the browser context as `js-active`.
+- An inline, synchronous `<style is:inline>` block enforces `opacity: 0 !important` on `<main>` immediately during initial HTML parsing. This guarantees the content is hidden during the first paint, bypassing asynchronous stylesheet injection delays caused by Vite's dev server client.
+- Once the Smart Snapper finishes measuring and padding blocks, it adds the `grid-snapped` class, smoothly fading the entire layout in at its **exact final snapped coordinate** in `150ms`.
+- For users with JS disabled, a standard `<noscript>` style guarantees fallback visibility.
+
 ---
 
 **Note:** If you add new elements that aren't snapping, ensure they are wrapped in a `data-snap="block"` container. The `ResizeObserver` in `Layout.astro` will handle the rest automatically.
