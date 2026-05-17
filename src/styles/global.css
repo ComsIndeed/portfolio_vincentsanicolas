@@ -155,8 +155,12 @@ html.js-active:not(.grid-snapped) main {
   transition: opacity 150ms var(--ease-out-expo);
 }
 
-[data-snap="block"]:hover::after {
-  opacity: 0.4;
+/* Highlight L-corners only on interactive (clickable) elements */
+a[data-snap="block"]:hover::after,
+a [data-snap="block"]:hover::after,
+.back-nav:hover::after,
+.project-group:hover [data-snap="block"]::after {
+  opacity: 0.45;
 }
 
 /* Dimension Lines (Measurement from content corner to grid line) */

@@ -45,13 +45,7 @@
 	padding: 2rem;
 	background: rgba(255, 255, 255, 0.02);
 	border: 1px solid rgba(0, 0, 0, 0.05);
-	transition: border-color 150ms var(--ease-out-expo), background-color 150ms var(--ease-out-expo);
 	gap: 1rem;
-}
-
-.section-block:hover {
-	border-color: rgba(0, 0, 0, 0.15);
-	background-color: rgba(0, 0, 0, 0.01);
 }
 
 .section-block h2 {
@@ -79,7 +73,6 @@
 	margin-bottom: 1rem !important;
 }
 
-/* Hero image floated right to allow text wrapping inline */
 .hero-image-container {
 	float: right;
 	width: 320px;
@@ -87,32 +80,20 @@
 	margin-left: 2.25rem;
 	margin-bottom: 1.5rem;
 	background: rgba(0, 0, 0, 0.015);
-	border: 1px dashed rgba(0, 0, 0, 0.1);
+	border: 1px dashed rgba(0, 0, 0, 0.10);
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	overflow: hidden;
 	position: relative;
-	transition: border-color 150ms var(--ease-out-expo), background-color 150ms var(--ease-out-expo);
-}
-
-.section-block:hover .hero-image-container {
-	border-color: rgba(0, 0, 0, 0.25);
-	background-color: rgba(0, 0, 0, 0.03);
 }
 
 .project-image {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	opacity: 0.85;
+	opacity: 0.9; /* Set slightly brighter default visibility since it's static */
 	mix-blend-mode: multiply;
-	transition: opacity 150ms var(--ease-out-expo), transform 150ms var(--ease-out-expo);
-}
-
-.section-block:hover .project-image {
-	opacity: 1;
-	transform: scale(1.02);
 }
 
 /* Code example specific styles (from llm_json_stream) */
