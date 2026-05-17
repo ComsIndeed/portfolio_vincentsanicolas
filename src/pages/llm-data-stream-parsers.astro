@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Chip from '../components/chip.astro';
 import Tabs from '../components/Tabs.astro';
 import { Icon } from 'astro-icon/components';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
 
 import '../styles/project.css';
 
@@ -54,6 +55,8 @@ const dataStructures = [
 			<p>
 				In modern structured output tasks, Large Language Models stream their responses token-by-token in formats like JSON, YAML, or XML. However, standard parsing runtimes require a completed document to parse, throwing fatal syntax or parse errors when fed incomplete fragments. Waiting for the entire stream to finish blocks the user experience behind static spinners, negating the real-time responsive speed of generative applications.
 			</p>
+			
+			<ImagePlaceholder description="Image showcasing the problem: Standard parsers breaking on partial, streaming JSON/YAML/XML tokens" />
 		</div>
 
 		<!-- The Solution -->
@@ -69,6 +72,7 @@ const dataStructures = [
 					<p class="tab-pane-description">
 						Engineered to scan and reconstruct fractured JSON structures in real-time. As chunks stream from the LLM, the parser reactively synthesizes partial trees, escaping tokens, closing unclosed keys, strings, and brackets to dynamically yield valid JSON objects on the fly.
 					</p>
+					<ImagePlaceholder description="Image showing the solution in the works: stream-parsing JSON in real-time, demonstrating auto-completed keys and balanced brackets" height="180px" />
 				</div>
 
 				<div slot="yaml" class="tab-content-pane">
@@ -76,6 +80,7 @@ const dataStructures = [
 					<p class="tab-pane-description">
 						Designed to handle indentation-sensitive data blocks dynamically. The YAML parser monitors spacing, carriage returns, and document boundaries, producing incremental key-value pairs without breaking the structural indentation rules crucial to YAML parser runtimes.
 					</p>
+					<ImagePlaceholder description="Image showing the solution in the works: live indentation checking and structural alignment of partially streamed YAML keys" height="180px" />
 				</div>
 
 				<div slot="xml" class="tab-content-pane">
@@ -83,6 +88,7 @@ const dataStructures = [
 					<p class="tab-pane-description">
 						Optimized to parse streaming document trees. By tracking open and closed tags, nested attributes, and text nodes incrementally, the XML parser closes tags on-the-fly to render live, structured document interfaces without parsing errors.
 					</p>
+					<ImagePlaceholder description="Image showing the solution in the works: incremental XML element nesting and auto-tag closure mid-stream" height="180px" />
 				</div>
 			</Tabs>
 		</div>

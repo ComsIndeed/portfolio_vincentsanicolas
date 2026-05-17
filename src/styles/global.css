@@ -73,7 +73,7 @@ body::before {
 main {
   max-width: var(--container-width);
   margin: 0 auto;
-  padding: var(--grid-size) 2rem;
+  padding: var(--grid-size) 2rem 10rem 2rem;
   position: relative;
   z-index: 10;
   

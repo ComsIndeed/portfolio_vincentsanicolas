@@ -1,0 +1,94 @@
+---
+interface Props {
+  description: string;
+  height?: string;
+}
+
+const { description, height = '250px' } = Astro.props;
+---
+
+<div class="image-placeholder" style={`height: ${height};`}>
+  <!-- Background lines forming an X -->
+  <svg class="placeholder-x" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <line x1="0" y1="0" x2="100%" y2="100%" />
+    <line x1="0" y1="100%" x2="100%" y2="0" />
+  </svg>
+  
+  <div class="placeholder-content">
+    <span class="placeholder-tag">DIAGRAM / IMAGE PLACEHOLDER</span>
+    <p class="placeholder-desc">{description}</p>
+  </div>
+</div>
+
+<style>
+  .image-placeholder {
+    position: relative;
+    width: 100%;
+    background-color: #5c1111; /* Rich dark red */
+    border: 3px solid #000000; /* Black border outline */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 2rem 0;
+    box-sizing: border-box;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15); /* Sleek blocky shadow for premium feel */
+  }
+
+  .placeholder-x {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .placeholder-x line {
+    stroke: #000000; /* Black lines crossing */
+    stroke-width: 2.5;
+    opacity: 0.4; /* Prominent X but does not obstruct readability */
+  }
+
+  .placeholder-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 1.5rem 2rem;
+    max-width: 85%;
+    background-color: #5c1111; /* Matching dark red background block for excellent readability of text */
+    border: 2px solid #000000; /* Small inner border for premium blueprint feel */
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+  }
+
+  .placeholder-tag {
+    display: block;
+    font-family: monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: #eab308; /* Bright yellow */
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+
+  .placeholder-desc {
+    color: #fef08a; /* Light yellow for readable description */
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .image-placeholder {
+      margin: 1.5rem 0;
+    }
+    
+    .placeholder-desc {
+      font-size: 0.9rem;
+    }
+  }
+</style>
