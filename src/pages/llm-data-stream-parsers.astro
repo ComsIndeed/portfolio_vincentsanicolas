@@ -73,6 +73,140 @@ const dataStructures = [
 						Engineered to scan and reconstruct fractured JSON structures in real-time. As chunks stream from the LLM, the parser reactively synthesizes partial trees, escaping tokens, closing unclosed keys, strings, and brackets to dynamically yield valid JSON objects on the fly.
 					</p>
 					<ImagePlaceholder description="Image showing the solution in the works: stream-parsing JSON in real-time, demonstrating auto-completed keys and balanced brackets" height="180px" />
+
+					<div class="usage-section">
+						<h3 class="usage-header">Usage</h3>
+						<div class="lang-switcher" data-switcher="json">
+							<div class="switcher-buttons">
+								<button class="switcher-btn active" data-lang="dart" type="button">
+									<Icon name="simple-icons:dart" class="switcher-icon" />
+									<span class="switcher-label">Dart</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+								<button class="switcher-btn" data-lang="ts" type="button">
+									<Icon name="simple-icons:typescript" class="switcher-icon" />
+									<span class="switcher-label">TypeScript</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+								<button class="switcher-btn" data-lang="python" type="button">
+									<Icon name="simple-icons:python" class="switcher-icon" />
+									<span class="switcher-label">Python</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+								<button class="switcher-btn" data-lang="csharp" type="button">
+									<Icon name="simple-icons:csharp" class="switcher-icon" />
+									<span class="switcher-label">C#</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+								<button class="switcher-btn" data-lang="kotlin" type="button">
+									<Icon name="simple-icons:kotlin" class="switcher-icon" />
+									<span class="switcher-label">Kotlin</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+							</div>
+							
+							<div class="switcher-panes">
+								<!-- DART -->
+								<div class="switcher-pane active" data-lang-pane="dart">
+									<div class="code-wrapper">
+										<span class="code-title">DART USAGE</span>
+										<pre><code><span class="token keyword">import</span> <span class="token string">'package:llm_json_stream/llm_json_stream.dart'</span>;
+
+<span class="token keyword">final</span> parser <span class="token operator">=</span> <span class="token class">JsonStreamParser</span>(chunkStream);
+
+<span class="token comment">// Reactive property chunk extraction</span>
+parser.<span class="token function">getStringProperty</span>(<span class="token string">'user.bio'</span>).stream.<span class="token function">listen</span>((chunk) &#123;
+  <span class="token function">print</span>(<span class="token string">'Bio fragment: $chunk'</span>);
+&#125;);
+
+<span class="token comment">// List element increment callbacks</span>
+parser.<span class="token function">onElement</span>(<span class="token string">'items'</span>).<span class="token function">listen</span>((item) &#123;
+  <span class="token function">print</span>(<span class="token string">'New list element parsed: $item'</span>);
+&#125;);</code></pre>
+									</div>
+								</div>
+
+								<!-- TS -->
+								<div class="switcher-pane" data-lang-pane="ts">
+									<div class="code-wrapper">
+										<span class="code-title">TYPESCRIPT USAGE</span>
+										<pre><code><span class="token keyword">import</span> &#123; <span class="token class">JsonStreamParser</span> &#125; <span class="token keyword">from</span> <span class="token string">'llm-json-stream-ts'</span>;
+
+<span class="token keyword">const</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class">JsonStreamParser</span>(responseStream);
+
+<span class="token comment">// Pure JS/TS async iterator stream loop</span>
+<span class="token keyword">for</span> <span class="token keyword">await</span> (<span class="token keyword">const</span> chunk <span class="token keyword">of</span> parser.<span class="token function">getStringProperty</span>(<span class="token string">'user.bio'</span>)) &#123;
+  console.<span class="token function">log</span>(<span class="token string">'Bio fragment:'</span>, chunk);
+&#125;
+
+<span class="token comment">// Reactively receive items as they finish healing</span>
+parser.<span class="token function">onElement</span>(<span class="token string">'items'</span>, (item) <span class="token operator">=&gt;</span> &#123;
+  console.<span class="token function">log</span>(<span class="token string">'New list element parsed:'</span>, item);
+&#125;);</code></pre>
+									</div>
+								</div>
+
+								<!-- PYTHON -->
+								<div class="switcher-pane" data-lang-pane="python">
+									<div class="code-wrapper">
+										<span class="code-title">PYTHON USAGE</span>
+										<pre><code><span class="token keyword">from</span> llm_json_stream <span class="token keyword">import</span> <span class="token class">JsonStreamParser</span>
+
+parser <span class="token operator">=</span> <span class="token class">JsonStreamParser</span>(async_iterable)
+
+<span class="token comment"># Stream-based processing via async generators</span>
+<span class="token keyword">async for</span> chunk <span class="token keyword">in</span> parser.<span class="token function">get_string_property</span>(<span class="token string">"user.bio"</span>):
+    <span class="token function">print</span>(f<span class="token string">"Bio fragment: &#123;chunk&#125;"</span>)
+
+<span class="token comment"># Direct await resolution (Dual-behavior object)</span>
+complete_bio <span class="token operator">=</span> <span class="token keyword">await</span> parser.<span class="token function">get_string_property</span>(<span class="token string">"user.bio"</span>)</code></pre>
+									</div>
+								</div>
+
+								<!-- C# -->
+								<div class="switcher-pane" data-lang-pane="csharp">
+									<div class="code-wrapper">
+										<span class="code-title">C# USAGE</span>
+										<pre><code><span class="token keyword">using</span> LlmJsonStream;
+
+<span class="token keyword">var</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class">JsonStreamParser</span>(responseStream);
+
+<span class="token comment">// Reactive async stream iteration</span>
+<span class="token keyword">await foreach</span> (<span class="token keyword">var</span> chunk <span class="token keyword">in</span> parser.<span class="token function">GetStringProperty</span>(<span class="token string">"user.bio"</span>))
+&#123;
+    <span class="token class">Console</span>.<span class="token function">WriteLine</span>(<span class="token string">"Bio fragment: "</span> <span class="token operator">+</span> chunk);
+&#125;
+
+<span class="token comment">// Await directly for full property completion</span>
+<span class="token keyword">string</span> completeBio <span class="token operator">=</span> <span class="token keyword">await</span> parser.<span class="token function">GetStringProperty</span>(<span class="token string">"user.bio"</span>);</code></pre>
+									</div>
+								</div>
+
+								<!-- KOTLIN -->
+								<div class="switcher-pane" data-lang-pane="kotlin">
+									<div class="code-wrapper">
+										<span class="code-title">KOTLIN USAGE</span>
+										<pre><code><span class="token keyword">import</span> llm.json.stream.<span class="token class">JsonStreamParser</span>
+
+<span class="token keyword">val</span> parser <span class="token operator">=</span> <span class="token class">JsonStreamParser</span>(responseFlow)
+
+<span class="token comment">// Reactive Flow collection for UI mapping</span>
+parser.<span class="token function">getStringProperty</span>(<span class="token string">"user.bio"</span>).flow.<span class="token function">collect</span> &#123; chunk <span class="token operator">-&gt;</span>
+    <span class="token function">println</span>(<span class="token string">"Bio fragment: \$chunk"</span>)
+&#125;
+
+<span class="token comment">// Direct suspend await</span>
+<span class="token keyword">val</span> completeBio = parser.<span class="token function">getStringProperty</span>(<span class="token string">"user.bio"</span>).<span class="token function">await</span>()</code></pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div slot="yaml" class="tab-content-pane">
@@ -81,6 +215,57 @@ const dataStructures = [
 						Designed to handle indentation-sensitive data blocks dynamically. The YAML parser monitors spacing, carriage returns, and document boundaries, producing incremental key-value pairs without breaking the structural indentation rules crucial to YAML parser runtimes.
 					</p>
 					<ImagePlaceholder description="Image showing the solution in the works: live indentation checking and structural alignment of partially streamed YAML keys" height="180px" />
+
+					<div class="usage-section">
+						<h3 class="usage-header">Usage</h3>
+						<div class="lang-switcher" data-switcher="yaml">
+							<div class="switcher-buttons">
+								<button class="switcher-btn active" data-lang="ts" type="button">
+									<Icon name="simple-icons:typescript" class="switcher-icon" />
+									<span class="switcher-label">TypeScript</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+								<button class="switcher-btn" data-lang="python" type="button">
+									<Icon name="simple-icons:python" class="switcher-icon" />
+									<span class="switcher-label">Python</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+							</div>
+							
+							<div class="switcher-panes">
+								<!-- TS -->
+								<div class="switcher-pane active" data-lang-pane="ts">
+									<div class="code-wrapper">
+										<span class="code-title">TYPESCRIPT USAGE</span>
+										<pre><code><span class="token keyword">import</span> &#123; <span class="token class">YamlStreamParser</span> &#125; <span class="token keyword">from</span> <span class="token string">'llm-yaml-stream-ts'</span>;
+
+<span class="token keyword">const</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class">YamlStreamParser</span>(asyncIterable);
+
+<span class="token comment">// Scan spacing, carriage returns and document boundaries incrementally</span>
+<span class="token keyword">for</span> <span class="token keyword">await</span> (<span class="token keyword">const</span> chunk <span class="token keyword">of</span> parser.<span class="token function">getStringProperty</span>(<span class="token string">'config.environments'</span>)) &#123;
+  console.<span class="token function">log</span>(<span class="token string">'YAML chunk:'</span>, chunk);
+&#125;</code></pre>
+									</div>
+								</div>
+
+								<!-- PYTHON -->
+								<div class="switcher-pane" data-lang-pane="python">
+									<div class="code-wrapper">
+										<span class="code-title">PYTHON USAGE</span>
+										<pre><code><span class="token keyword">from</span> llm_yaml_stream <span class="token keyword">import</span> <span class="token class">YamlStreamParser</span>
+
+parser <span class="token operator">=</span> <span class="token class">YamlStreamParser</span>(async_iterable)
+
+<span class="token comment"># Clean reactive generator iteration for streaming YAML data blocks</span>
+<span class="token keyword">async for</span> chunk <span class="token keyword">in</span> parser.<span class="token function">get_string_property</span>(<span class="token string">"config.environments"</span>):
+    <span class="token function">print</span>(f<span class="token string">"YAML chunk: &#123;chunk&#125;"</span>)</code></pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div slot="xml" class="tab-content-pane">
@@ -89,13 +274,64 @@ const dataStructures = [
 						Optimized to parse streaming document trees. By tracking open and closed tags, nested attributes, and text nodes incrementally, the XML parser closes tags on-the-fly to render live, structured document interfaces without parsing errors.
 					</p>
 					<ImagePlaceholder description="Image showing the solution in the works: incremental XML element nesting and auto-tag closure mid-stream" height="180px" />
+
+					<div class="usage-section">
+						<h3 class="usage-header">Usage</h3>
+						<div class="lang-switcher" data-switcher="xml">
+							<div class="switcher-buttons">
+								<button class="switcher-btn active" data-lang="ts" type="button">
+									<Icon name="simple-icons:typescript" class="switcher-icon" />
+									<span class="switcher-label">TypeScript</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+								<button class="switcher-btn" data-lang="python" type="button">
+									<Icon name="simple-icons:python" class="switcher-icon" />
+									<span class="switcher-label">Python</span>
+									<div class="switcher-corner-tl"></div>
+									<div class="switcher-corner-br"></div>
+								</button>
+							</div>
+							
+							<div class="switcher-panes">
+								<!-- TS -->
+								<div class="switcher-pane active" data-lang-pane="ts">
+									<div class="code-wrapper">
+										<span class="code-title">TYPESCRIPT USAGE</span>
+										<pre><code><span class="token keyword">import</span> &#123; <span class="token class">XmlStreamParser</span> &#125; <span class="token keyword">from</span> <span class="token string">'llm-xml-stream-ts'</span>;
+
+<span class="token keyword">const</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class">XmlStreamParser</span>(asyncIterable);
+
+<span class="token comment">// Stream text nodes, nested attributes, and elements reactively</span>
+<span class="token keyword">for</span> <span class="token keyword">await</span> (<span class="token keyword">const</span> chunk <span class="token keyword">of</span> parser.<span class="token function">getElementText</span>(<span class="token string">'channel.item'</span>)) &#123;
+  console.<span class="token function">log</span>(<span class="token string">'XML tag chunk:'</span>, chunk);
+&#125;</code></pre>
+									</div>
+								</div>
+
+								<!-- PYTHON -->
+								<div class="switcher-pane" data-lang-pane="python">
+									<div class="code-wrapper">
+										<span class="code-title">PYTHON USAGE</span>
+										<pre><code><span class="token keyword">from</span> llm_xml_stream <span class="token keyword">import</span> <span class="token class">XmlStreamParser</span>
+
+parser <span class="token operator">=</span> <span class="token class">XmlStreamParser</span>(async_iterable)
+
+<span class="token comment"># Track open and closed tags and output incremental text nodes</span>
+<span class="token keyword">async for</span> chunk <span class="token keyword">in</span> parser.<span class="token function">get_element_text</span>(<span class="token string">"channel.item"</span>):
+    <span class="token function">print</span>(f<span class="token string">"XML tag chunk: &#123;chunk&#125;"</span>)</code></pre>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</Tabs>
 		</div>
 	</div>
 </Layout>
 
-<style>
+<style is:global>
 	.tab-content-pane {
 		display: flex;
 		flex-direction: column;
@@ -120,6 +356,245 @@ const dataStructures = [
 		margin: 0;
 	}
 
+	/* Usage Switcher Styles */
+	.usage-section {
+		margin-top: 2rem;
+		border-top: 1px dashed var(--grid-color);
+		padding-top: 1.5rem;
+	}
+
+	.usage-header {
+		font-size: 1.15rem !important;
+		font-weight: 700;
+		margin-bottom: 1.25rem !important;
+		color: var(--text-color);
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		font-family: monospace;
+	}
+
+	.lang-switcher {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+		width: 100%;
+	}
+
+	.switcher-buttons {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		position: relative;
+		z-index: 15;
+		padding-left: 1px;
+	}
+
+	.switcher-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem 1rem;
+		background-color: var(--bg-color);
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		border-radius: 0; /* Strict square corners */
+		font-size: 0.82rem;
+		font-weight: 500;
+		color: #4b5563;
+		font-family: 'JetBrains Mono', monospace;
+		position: relative;
+		cursor: pointer;
+		user-select: none;
+		transition: 
+			transform 150ms var(--ease-out-expo),
+			box-shadow 150ms var(--ease-out-expo),
+			border-color 150ms var(--ease-out-expo),
+			background-color 150ms var(--ease-out-expo),
+			color 150ms var(--ease-out-expo);
+		
+		/* Draftsman weathering background pattern */
+		background-image: 
+			url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+	}
+
+	/* Corner markers similar to main tabs */
+	.switcher-corner-tl, .switcher-corner-br {
+		content: "";
+		position: absolute;
+		width: 5px;
+		height: 5px;
+		border-color: var(--grid-color);
+		border-style: solid;
+		pointer-events: none;
+		opacity: 0.4;
+		transition: opacity 150ms var(--ease-out-expo), transform 150ms var(--ease-out-expo);
+	}
+
+	.switcher-corner-tl {
+		top: -3px;
+		left: -3px;
+		border-width: 1px 0 0 1px;
+	}
+
+	.switcher-corner-br {
+		bottom: -3px;
+		right: -3px;
+		border-width: 0 1px 1px 0;
+	}
+
+	/* Hover actions mimicking primary tabs */
+	.switcher-btn:hover {
+		transform: translate(-1px, -1px);
+		box-shadow: 2px 2px 0px var(--grid-color);
+		border-color: var(--text-color);
+		color: var(--text-color);
+		background-color: rgba(0, 0, 0, 0.02);
+	}
+
+	.switcher-btn:hover .switcher-corner-tl {
+		opacity: 0.8;
+		transform: translate(-1px, -1px);
+	}
+
+	.switcher-btn:hover .switcher-corner-br {
+		opacity: 0.8;
+		transform: translate(1px, 1px);
+	}
+
+	/* Active tab states */
+	.switcher-btn.active {
+		background-color: var(--bg-color);
+		border-color: var(--text-color);
+		border-width: 1.5px;
+		color: var(--text-color);
+		font-weight: 700;
+		transform: translate(-1px, -1px);
+		box-shadow: 3px 3px 0px var(--text-color);
+		z-index: 20;
+	}
+
+	.switcher-btn.active .switcher-corner-tl {
+		opacity: 1;
+		border-color: var(--text-color);
+		transform: translate(-2px, -2px);
+	}
+
+	.switcher-btn.active .switcher-corner-br {
+		opacity: 1;
+		border-color: var(--text-color);
+		transform: translate(2px, 2px);
+	}
+
+	.switcher-btn:active {
+		transform: scale(0.97);
+	}
+
+	.switcher-icon {
+		width: 0.95rem;
+		height: 0.95rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: inherit;
+		opacity: 0.85;
+	}
+
+	.switcher-label {
+		white-space: nowrap;
+	}
+
+	.switcher-panes {
+		width: 100%;
+		position: relative;
+	}
+
+	.switcher-pane {
+		display: none;
+		opacity: 0;
+	}
+
+	.switcher-pane.active {
+		display: block;
+		opacity: 1;
+		animation: paneFadeIn 200ms var(--ease-out-expo) forwards;
+	}
+
+	@keyframes paneFadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(3px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Code block styled for light mode but slightly darkened */
+	.code-wrapper {
+		position: relative;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		background-color: #f3f4f6; /* Slightly darkened slate grey */
+		color: #1f2937; /* Clean grey text */
+		border-radius: 0;
+		overflow: hidden;
+		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+	}
+
+	.code-title {
+		display: block;
+		background-color: #e5e7eb;
+		padding: 0.5rem 1rem;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: #4b5563;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		letter-spacing: 0.1em;
+	}
+
+	.code-wrapper pre {
+		margin: 0;
+		padding: 1.25rem;
+		overflow-x: auto;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.85rem;
+		line-height: 1.6;
+		background: transparent;
+	}
+
+	.code-wrapper code {
+		font-family: inherit;
+		color: inherit;
+	}
+
+	/* Custom syntax highlighting tokens for light mode */
+	.token.keyword {
+		color: #b91c1c; /* Deep rich red */
+		font-weight: 600;
+	}
+
+	.token.string {
+		color: #15803d; /* Dark green for strings */
+	}
+
+	.token.comment {
+		color: #6b7280; /* Muted gray for comments */
+		font-style: italic;
+	}
+
+	.token.class {
+		color: #0369a1; /* Deep blue-cyan for classes */
+		font-weight: 600;
+	}
+
+	.token.function {
+		color: #6d28d9; /* Rich purple for functions/methods */
+	}
+
+	.token.operator {
+		color: #4b5563; /* Slate grey for operators */
+	}
+
 	@media (max-width: 768px) {
 		.tab-content-pane h2 {
 			font-size: 1.35rem;
@@ -128,6 +603,47 @@ const dataStructures = [
 		.tab-pane-description {
 			text-align: left;
 		}
+		
+		.switcher-buttons {
+			gap: 0.5rem;
+			padding-left: 0;
+		}
+		
+		.switcher-btn {
+			padding: 0.4rem 0.8rem;
+			font-size: 0.78rem;
+			gap: 0.4rem;
+		}
 	}
 </style>
 
+<script>
+	function initLanguageSwitchers() {
+		const switchers = document.querySelectorAll('.lang-switcher');
+		switchers.forEach((switcher) => {
+			const buttons = switcher.querySelectorAll('.switcher-btn');
+			const panes = switcher.querySelectorAll('.switcher-pane');
+			
+			buttons.forEach((btn) => {
+				btn.addEventListener('click', () => {
+					const lang = btn.getAttribute('data-lang');
+					if (!lang) return;
+					
+					buttons.forEach(b => b.classList.remove('active'));
+					panes.forEach(p => p.classList.remove('active'));
+					
+					btn.classList.add('active');
+					const activePane = switcher.querySelector(`[data-lang-pane="${lang}"]`);
+					if (activePane) {
+						activePane.classList.add('active');
+					}
+					
+					// Re-trigger visual grid snapping calculation
+					window.dispatchEvent(new Event('resize'));
+				});
+			});
+		});
+	}
+
+	document.addEventListener('astro:page-load', initLanguageSwitchers);
+</script>
