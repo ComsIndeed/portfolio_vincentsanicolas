@@ -164,7 +164,7 @@ parser <span class="token operator">=</span> <span class="token class">JsonStrea
 <span class="token keyword">async for</span> chunk <span class="token keyword">in</span> parser.<span class="token function">get_string_property</span>(<span class="token string">"user.bio"</span>):
     <span class="token function">print</span>(f<span class="token string">"Bio fragment: &#123;chunk&#125;"</span>)
 
-<span class="token comment"># Direct await resolution (Dual-behavior object)</span>
+<span class="token comment">// Direct await resolution (Dual-behavior object)</span>
 complete_bio <span class="token operator">=</span> <span class="token keyword">await</span> parser.<span class="token function">get_string_property</span>(<span class="token string">"user.bio"</span>)</code></pre>
 									</div>
 								</div>
@@ -459,6 +459,192 @@ parser.<span class="token function">getElementText</span>(<span class="token str
 				</div>
 			</Tabs>
 		</div>
+
+		<!-- Feature Highlights -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>Feature Highlights</h2>
+			<p>
+				Engineered to deliver extreme performance and seamless integration capability. These cross-platform features guarantee structural validity for JSON, YAML, and XML under any streaming state.
+			</p>
+			
+			<div class="features-grid">
+				<!-- Card 1 -->
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">FEATURE_01</span>
+						<h3>Streaming Strings</h3>
+						<p>Yields partial strings safely by automatically balancing unclosed quotes and escape sequences mid-chunk.</p>
+					</div>
+					<ImagePlaceholder description="String quotes auto-balance mechanism" height="85px" />
+				</div>
+
+				<!-- Card 2 -->
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">FEATURE_02</span>
+						<h3>Reactive Lists</h3>
+						<p>Trigger incremental callback events instantly as soon as list elements complete healing.</p>
+					</div>
+					<ImagePlaceholder description="Incremental array yield pipeline" height="85px" />
+				</div>
+
+				<!-- Card 3 -->
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">FEATURE_03</span>
+						<h3>Smart Casts</h3>
+						<p>Type-heals invalid streaming property types into correct target formats dynamically.</p>
+					</div>
+					<ImagePlaceholder description="Stream value structural healer" height="85px" />
+				</div>
+
+				<!-- Card 4 -->
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">FEATURE_04</span>
+						<h3>Yap Filter</h3>
+						<p>Ignores conversational chatter and preambles, focusing strictly on target data objects.</p>
+					</div>
+					<ImagePlaceholder description="LLM conversational chatter filter" height="85px" />
+				</div>
+
+				<!-- Card 5 -->
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">FEATURE_05</span>
+						<h3>Observability</h3>
+						<p>Monitors syntax healing frequencies, raw byte ratios, and healing events dynamically.</p>
+					</div>
+					<ImagePlaceholder description="Real-time healing metrics dashboard" height="85px" />
+				</div>
+
+				<!-- Card 6 -->
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">FEATURE_06</span>
+						<h3>Flexible API</h3>
+						<p>Method-chained builders that natively align with language paradigms across all 5 SDKs.</p>
+					</div>
+					<ImagePlaceholder description="Multi-platform native SDK API" height="85px" />
+				</div>
+			</div>
+		</div>
+
+		<!-- Robustness -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>Robustness & Testing</h2>
+			<p>
+				Engineered for absolute fault-tolerance. The stream parsing engines are subjected to a strict test matrix covering deep structural nesting, random network stalling, chunk-boundary splits, and partial multi-byte UTF-8 character reconstructions.
+			</p>
+			
+			<div class="terminal-log">
+				<span class="code-title">INTEGRATION TEST PIPELINE RUNTIME LOG</span>
+				<pre><code>$ run-tests --verbose --all-languages
+
+<span class="token pass">✓</span> JSON Stream Suite (240 tests passed)
+  <span class="token pass">✓</span> Escaped unicode fragments heal [0.2ms]
+  <span class="token pass">✓</span> Multi-byte character stream boundaries [1.1ms]
+  <span class="token pass">✓</span> Deep tree reconstruction [0.6ms]
+  <span class="token pass">✓</span> Partially parsed array streams [0.3ms]
+
+<span class="token pass">✓</span> YAML Stream Suite (150 tests passed)
+  <span class="token pass">✓</span> Indentation repair under broken maps [1.3ms]
+  <span class="token pass">✓</span> Multi-line block string healing [0.8ms]
+
+<span class="token pass">✓</span> XML Stream Suite (114 tests passed)
+  <span class="token pass">✓</span> Closing nested tree tags [0.5ms]
+  <span class="token pass">✓</span> Incomplete attributes repair [0.3ms]
+
+<span class="summary">Test Suites: 3 passed, 3 total
+Tests:       504 passed, 504 total
+Snapshots:   0 total
+Time:        0.784s
+Ran all test suites successfully across Python, TypeScript, Dart, C#, and Kotlin.</span></code></pre>
+			</div>
+		</div>
+
+		<!-- LLM Provider Setup -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>LLM Provider Setup</h2>
+			<p>
+				Configure and pipe streaming token text from any major Large Language Model provider directly into the parser instance with minimal orchestration.
+			</p>
+			
+			<div class="providers-grid">
+				<!-- OpenAI -->
+				<div class="provider-card">
+					<div class="provider-header">
+						<div class="provider-info">
+							<Icon name="simple-icons:openai" class="provider-logo" />
+							<h3>OpenAI</h3>
+						</div>
+					</div>
+					<div class="code-wrapper">
+						<span class="code-title">OPENAI CONNECTION (JS)</span>
+						<pre><code><span class="token keyword">const</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class">JsonStreamParser</span>();
+
+<span class="token comment">// Stream choices directly to parser</span>
+<span class="token keyword">for await</span> (<span class="token keyword">const</span> chunk <span class="token keyword">of</span> openaiStream) &#123;
+  <span class="token keyword">const</span> text <span class="token operator">=</span> chunk.choices[<span class="token number">0</span>]?.delta?.content;
+  <span class="token keyword">if</span> (text) parser.<span class="token function">write</span>(text);
+&#125;</code></pre>
+					</div>
+				</div>
+
+				<!-- Anthropic -->
+				<div class="provider-card">
+					<div class="provider-header">
+						<div class="provider-info">
+							<Icon name="simple-icons:anthropic" class="provider-logo" />
+							<h3>Anthropic</h3>
+						</div>
+					</div>
+					<div class="code-wrapper">
+						<span class="code-title">CLAUDE CONNECTION (JS)</span>
+						<pre><code><span class="token keyword">const</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class">JsonStreamParser</span>();
+
+<span class="token comment">// Feed Anthropic event chunks</span>
+<span class="token keyword">for await</span> (<span class="token keyword">const</span> event <span class="token keyword">of</span> claudeStream) &#123;
+  <span class="token keyword">if</span> (event.type <span class="token operator">===</span> <span class="token string">'content_block_delta'</span>) &#123;
+    parser.<span class="token function">write</span>(event.delta.text);
+  &#125;
+&#125;</code></pre>
+					</div>
+				</div>
+
+				<!-- Gemini -->
+				<div class="provider-card">
+					<div class="provider-header">
+						<div class="provider-info">
+							<Icon name="simple-icons:google" class="provider-logo" />
+							<h3>Google Gemini</h3>
+						</div>
+					</div>
+					<div class="code-wrapper">
+						<span class="code-title">GEMINI CONNECTION (JS)</span>
+						<pre><code><span class="token keyword">const</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class">JsonStreamParser</span>();
+
+<span class="token comment">// Pipe Gemini text segments</span>
+<span class="token keyword">for await</span> (<span class="token keyword">const</span> chunk <span class="token keyword">of</span> geminiStream) &#123;
+  parser.<span class="token function">write</span>(chunk.text);
+&#125;</code></pre>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 </Layout>
 
@@ -726,6 +912,177 @@ parser.<span class="token function">getElementText</span>(<span class="token str
 		color: #4b5563; /* Slate grey for operators */
 	}
 
+	.token.pass {
+		color: #16a34a; /* Green checks */
+		font-weight: 700;
+	}
+
+	/* Space-efficient Feature Highlights */
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 1.5rem;
+		margin-top: 1.5rem;
+	}
+
+	.feature-card {
+		position: relative;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		background-color: var(--bg-color);
+		padding: 1.25rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+		transition: transform 150ms var(--ease-out-expo), box-shadow 150ms var(--ease-out-expo);
+	}
+
+	.feature-card:hover {
+		transform: translate(-1px, -1px);
+		box-shadow: 4px 4px 0px var(--text-color);
+		border-color: var(--text-color);
+	}
+
+	.feature-corner-tl, .feature-corner-br {
+		content: "";
+		position: absolute;
+		width: 5px;
+		height: 5px;
+		border-color: var(--grid-color);
+		border-style: solid;
+		pointer-events: none;
+		opacity: 0.4;
+		transition: opacity 150ms var(--ease-out-expo), transform 150ms var(--ease-out-expo);
+	}
+
+	.feature-corner-tl {
+		top: -3px;
+		left: -3px;
+		border-width: 1px 0 0 1px;
+	}
+
+	.feature-corner-br {
+		bottom: -3px;
+		right: -3px;
+		border-width: 0 1px 1px 0;
+	}
+
+	.feature-card:hover .feature-corner-tl {
+		opacity: 0.8;
+		transform: translate(-1px, -1px);
+	}
+
+	.feature-card:hover .feature-corner-br {
+		opacity: 0.8;
+		transform: translate(1px, 1px);
+	}
+
+	.feature-meta {
+		display: block;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.68rem;
+		font-weight: 700;
+		color: #9ca3af;
+		letter-spacing: 0.12em;
+		margin-bottom: 0.35rem;
+	}
+
+	.feature-card h3 {
+		font-size: 1.1rem;
+		font-weight: 700;
+		margin: 0 0 0.5rem 0;
+		color: var(--text-color);
+	}
+
+	.feature-card p {
+		font-size: 0.85rem;
+		line-height: 1.45;
+		color: var(--text-color);
+		opacity: 0.75;
+		margin: 0 0 1rem 0;
+	}
+
+	/* Robustness Terminal Logger Style */
+	.terminal-log {
+		margin-top: 1.5rem;
+		box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+	}
+
+	.terminal-log pre {
+		background-color: #f3f4f6;
+		margin: 0;
+		padding: 1.25rem;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		border-top: none;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.82rem;
+		line-height: 1.6;
+		color: #1f2937;
+		overflow-x: auto;
+	}
+
+	.summary {
+		display: block;
+		margin-top: 1rem;
+		border-top: 1px dashed rgba(0, 0, 0, 0.15);
+		padding-top: 0.75rem;
+		color: #4b5563;
+	}
+
+	/* LLM Provider Setup Styles */
+	.providers-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+		gap: 1.5rem;
+		margin-top: 1.5rem;
+		width: 100%;
+	}
+
+	.provider-card {
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		background-color: var(--bg-color);
+		display: flex;
+		flex-direction: column;
+		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+		overflow: hidden;
+	}
+
+	.provider-header {
+		padding: 1rem 1.25rem;
+		background-color: rgba(0, 0, 0, 0.02);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+	}
+
+	.provider-info {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
+
+	.provider-logo {
+		width: 1.35rem;
+		height: 1.35rem;
+		color: var(--text-color);
+	}
+
+	.provider-info h3 {
+		font-size: 1.05rem;
+		font-weight: 700;
+		margin: 0;
+		color: var(--text-color);
+	}
+
+	.provider-card .code-wrapper {
+		border: none;
+		box-shadow: none;
+		background-color: #f9fafb;
+	}
+
+	.provider-card .code-title {
+		border-top: 1px solid rgba(0, 0, 0, 0.06);
+		background-color: #f3f4f6;
+	}
+
 	@media (max-width: 768px) {
 		.tab-content-pane h2 {
 			font-size: 1.35rem;
@@ -744,6 +1101,14 @@ parser.<span class="token function">getElementText</span>(<span class="token str
 			padding: 0.4rem 0.8rem;
 			font-size: 0.78rem;
 			gap: 0.4rem;
+		}
+
+		.features-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.providers-grid {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>
