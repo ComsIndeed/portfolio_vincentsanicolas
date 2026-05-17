@@ -5,16 +5,17 @@ interface Props {
   href: string;
   icon: string;
   label: string;
+  iconOnly?: boolean;
 }
 
-const { href, icon, label } = Astro.props;
+const { href, icon, label, iconOnly = false } = Astro.props;
 ---
 
-<a href={href} class="social-chip" target="_blank" rel="noopener noreferrer" aria-label={label}>
+<a href={href} class:list={["social-chip", { "icon-only": iconOnly }]} target="_blank" rel="noopener noreferrer" aria-label={label}>
   <div class="icon-wrapper">
     <Icon name={icon} />
   </div>
-  <span class="label">{label}</span>
+  {!iconOnly && <span class="label">{label}</span>}
 </a>
 
 <style>
@@ -78,6 +79,22 @@ const { href, icon, label } = Astro.props;
 
   .social-chip:active {
     transform: translateY(0) scale(0.98);
+  }
+
+  .social-chip.icon-only {
+    padding: 0;
+    width: 2.25rem;
+    height: 2.25rem;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .social-chip.icon-only .icon-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    height: 100%;
   }
 
   /* Matching the app's weathering if possible */
