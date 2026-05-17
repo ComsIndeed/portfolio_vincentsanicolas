@@ -42,17 +42,6 @@ import { Icon } from 'astro-icon/components';
 				</div>
 			</div>
 
-			<!-- Right Column: Photo Avatar Placeholder -->
-			<div class="avatar-col">
-				<div class="avatar-box">
-					<Icon name="tabler:user-code" class="avatar-icon" />
-					<div class="avatar-corner tl"></div>
-					<div class="avatar-corner tr"></div>
-					<div class="avatar-corner bl"></div>
-					<div class="avatar-corner br"></div>
-				</div>
-			</div>
-
 		</div>
 	</div>
 </div>
@@ -139,54 +128,6 @@ import { Icon } from 'astro-icon/components';
 		gap: 0.75rem;
 	}
 
-	.avatar-col {
-		display: flex;
-		justify-content: flex-end;
-		flex-shrink: 0;
-	}
-
-	/* Sleek Blueprint Avatar Styling */
-	.avatar-box {
-		position: relative;
-		width: 7rem;
-		height: 7rem;
-		border: 1px solid var(--text-color);
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: rgba(17, 17, 17, 0.02);
-		box-sizing: border-box;
-	}
-
-	/* Outer dashed drafting frame */
-	.avatar-box::before {
-		content: "";
-		position: absolute;
-		inset: -6px;
-		border: 1px dashed rgba(17, 17, 17, 0.15);
-		pointer-events: none;
-	}
-
-	/* Diagnostic crosshairs */
-	.avatar-box::after {
-		content: "";
-		position: absolute;
-		inset: 0;
-		background: 
-			linear-gradient(90deg, transparent 49.5%, rgba(17, 17, 17, 0.05) 50%, transparent 50.5%),
-			linear-gradient(0deg, transparent 49.5%, rgba(17, 17, 17, 0.05) 50%, transparent 50.5%);
-		pointer-events: none;
-	}
-
-	/* Bulletproof sizing for the Icon inside the blueprint box */
-	.avatar-box :global(svg) {
-		width: 3rem !important;
-		height: 3rem !important;
-		color: var(--text-color) !important;
-		opacity: 0.35 !important;
-		z-index: 1;
-	}
-
 	/* Outer visual layout locks */
 	.header-block,
 	.tech-stack-block {
@@ -212,25 +153,7 @@ import { Icon } from 'astro-icon/components';
 			gap: 1.5rem;
 		}
 
-		.identity-col {
-			order: 2; /* Identity and socials stack below avatar */
-		}
 
-		.avatar-col {
-			order: 1; /* Avatar sits at the top */
-			justify-content: flex-start;
-			width: 100%;
-		}
-
-		.avatar-box {
-			width: 6rem;
-			height: 6rem;
-		}
-
-		.avatar-box :global(svg) {
-			width: 2.5rem !important;
-			height: 2.5rem !important;
-		}
 
 		h1 {
 			font-size: 2rem;
