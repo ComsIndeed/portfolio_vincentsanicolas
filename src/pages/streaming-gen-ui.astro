@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Chip from '../components/chip.astro';
+import Tabs from '../components/Tabs.astro';
 import { Icon } from 'astro-icon/components';
 import ImagePlaceholder from '../components/ImagePlaceholder.astro';
 
@@ -8,16 +9,16 @@ import '../styles/project.css';
 ---
 
 <Layout 
-	title="Streaming Gen UI Controller | Vincent Sanicolas" 
-	description="A highly modular generative UI controller for Flutter. Designed to manage UI surface streaming, dynamic widget injection, and state restoration from LLM outputs."
+	title="Real-Time Generative User Interface Rendering & Processing Engine | Vincent Sanicolas" 
+	description="A highly modular, event-driven generative UI layout engine for Flutter applications, designed to decouple AI transport layers from front-end widget trees."
 	showBack={true}
 >
 	<!-- Title Header with Links Below Subtitle -->
 	<div data-snap="block" class="show-snap project-detail-header" data-snap-align="fill">
 		<div class="header-content">
 			<span class="project-mono-label">FLUTTER & DART UTILITY</span>
-			<h1>Streaming Generative UI Controller</h1>
-			<p class="subtitle">A highly modular generative UI controller for Flutter. Designed to manage UI surface streaming, dynamic widget injection, and state restoration from LLM outputs, empowering developers to instantly drop responsive, AI-driven components anywhere in their widget tree.</p>
+			<h1>Real-Time Generative User Interface Rendering & Processing Engine</h1>
+			<p class="subtitle">A highly modular, event-driven generative UI layout engine for Flutter applications. Designed to decouple AI transport layers from front-end widget trees, it handles namespaced token streams, compiles partial JSON component schemas via reactive builders, manages multi-view target-routing tags, and dynamically activates passive inputs as streams finalize.</p>
 			
 			<div class="project-links">
 				<Chip label="Flutter">
@@ -40,43 +41,92 @@ import '../styles/project.css';
 				Building generative AI interfaces usually involves tightly coupling LLM prompts, stream parsing logic, state management, and widget rendering. We wanted to decouple this entirely. The <code>StreamingGenUi</code> controller provides a clean boundary: we hand the developer the system prompt fragment, they manage their own LLM calls, and then they simply pipe the raw response stream back into the controller.
 			</p>
 			
-			<ImagePlaceholder description="Schematic of the decoupled architecture: Developer provides the stream, Controller targets the Surface ID." />
+			<ImagePlaceholder description="Schematic of the decoupled architecture: Developer provides the stream, Controller targets the View ID." />
 		</div>
 
 		<!-- Usage & API -->
 		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
 			<h2>Syntax and Usage</h2>
 			<p>
-				The API is designed for minimal boilerplate and maximum flexibility. Surfaces can be dynamically requested and populated with AI-generated widget trees across your entire application.
+				The API is designed for minimal boilerplate and maximum flexibility. Views can be dynamically requested and populated with AI-generated widget trees across your entire application.
 			</p>
 			
-			<div class="code-wrapper">
-				<span class="code-title">FLUTTER INTEGRATION</span>
-				<pre><code><span class="token comment">// The one class you actually need</span>
+			<Tabs items={[
+				{ id: 'minimal', label: 'Intended Usage', icon: 'tabler:code' },
+				{ id: 'full', label: 'Full API Reference', icon: 'tabler:terminal' }
+			]} defaultActive="minimal">
+				<div slot="minimal" class="tab-content-pane">
+					<p class="tab-pane-description" style="margin-bottom: 1.25rem !important;">
+						The standard layout for streaming and rendering. Set up the controller, pipe the stream in, save raw data on completion, and place the view anywhere in your widget tree.
+					</p>
+					<div class="code-wrapper">
+						<span class="code-title">INTENDED MINIMAL USAGE</span>
+						<pre><code><span class="token comment">// Setup</span>
 <span class="token keyword">final</span> genUi <span class="token operator">=</span> <span class="token class">StreamingGenUi</span>(registry: myRegistry);
 
-<span class="token comment">// Expose the prompt fragment — they inject it wherever they want</span>
-<span class="token keyword">final</span> prompt <span class="token operator">=</span> genUi.systemPrompt;
+<span class="token comment">// Inject the prompt fragment into your LLM system prompt however you want</span>
+<span class="token keyword">final</span> systemPrompt <span class="token operator">=</span> genUi.systemPrompt;
 
-<span class="token comment">// They call their LLM however they want, then pipe the stream in</span>
-<span class="token keyword">await</span> genUi.<span class="token function">stream</span>(response, surfaceId: <span class="token string">'side-panel'</span>);  <span class="token comment">// Flowserract case</span>
-<span class="token keyword">await</span> genUi.<span class="token function">stream</span>(response, surfaceId: <span class="token string">'message-42'</span>);  <span class="token comment">// Chat bubble case</span>
-<span class="token keyword">await</span> genUi.<span class="token function">stream</span>(response, surfaceId: <span class="token string">'global-modal'</span>); <span class="token comment">// Global action case</span>
+<span class="token comment">// Pipe the LLM response stream in, save raw response on completion</span>
+<span class="token keyword">await</span> genUi.<span class="token function">stream</span>(
+  llmStream,
+  viewId: <span class="token string">'message-42'</span>,
+  onComplete: (raw) <span class="token operator">=></span> db.<span class="token function">save</span>(raw),
+);
 
-<span class="token comment">// Get final parsed data after completion (e.g. to save to DB)</span>
-<span class="token keyword">final</span> data <span class="token operator">=</span> genUi.<span class="token function">getSurfaceData</span>(<span class="token string">'message-42'</span>);
+<span class="token comment">// Restore a past response from DB</span>
+genUi.<span class="token function">restore</span>(viewId: <span class="token string">'message-42'</span>, raw: db.<span class="token function">load</span>(<span class="token string">'message-42'</span>));
 
-<span class="token comment">// Restore from saved data — internally just streams it as an instant single-value stream</span>
-genUi.<span class="token function">restore</span>(surfaceId: <span class="token string">'message-42'</span>, data: savedJson);
+<span class="token comment">// Place the view anywhere in your widget tree</span>
+genUi.<span class="token function">view</span>(<span class="token string">'message-42'</span>)
 
-<span class="token comment">// Cleanup when a surface is permanently gone (e.g. chat cleared, logout)</span>
-genUi.<span class="token function">disposeSurface</span>(<span class="token string">'message-42'</span>);
+<span class="token comment">// Cleanup when permanently gone</span>
+genUi.<span class="token function">disposeView</span>(<span class="token string">'message-42'</span>);</code></pre>
+					</div>
+				</div>
+				
+				<div slot="full" class="tab-content-pane">
+					<p class="tab-pane-description" style="margin-bottom: 1.25rem !important;">
+						The complete API layout showcasing custom text callbacks, multi-view target tag-routing, text streaming hooks, and component lifecycle management.
+					</p>
+					<div class="code-wrapper">
+						<span class="code-title">FULL API REFERENCE</span>
+						<pre><code><span class="token comment">// Setup</span>
+<span class="token keyword">final</span> genUi <span class="token operator">=</span> <span class="token class">StreamingGenUi</span>(registry: myRegistry);
 
-<span class="token comment">// They place the surface widget wherever they want in their tree</span>
-<span class="token class">GenUiSurface</span>(controller: genUi, id: <span class="token string">'side-panel'</span>)
-<span class="token class">GenUiSurface</span>(controller: genUi, id: <span class="token string">'message-42'</span>)
-<span class="token class">GenUiSurface</span>(controller: genUi, id: <span class="token string">'global-modal'</span>)</code></pre>
-			</div>
+<span class="token comment">// System prompt fragment to inject into your LLM</span>
+<span class="token keyword">final</span> systemPrompt <span class="token operator">=</span> genUi.systemPrompt;
+
+<span class="token comment">// Stream — all parameters</span>
+<span class="token keyword">await</span> genUi.<span class="token function">stream</span>(
+  llmStream,
+  viewId: <span class="token string">'side-panel'</span>,          <span class="token comment">// optional — omit if only using callbacks</span>
+  onText: (chunk) <span class="token operator">=></span> ...,        <span class="token comment">// text portions only, tags stripped, as they stream</span>
+  onComplete: (raw) <span class="token operator">=></span> ...,      <span class="token comment">// full raw response (text + tags) for DB storage</span>
+);
+
+<span class="token comment">// Multiple views from one response via &lt;interface viewId="..."&gt; tags</span>
+<span class="token comment">// The LLM can target any mounted view by its ID in the tag itself</span>
+<span class="token keyword">await</span> genUi.<span class="token function">stream</span>(
+  llmStream,
+  viewId: <span class="token string">'message-42'</span>,          <span class="token comment">// default target for untagged &lt;interface&gt; blocks</span>
+  onText: (chunk) <span class="token operator">=></span> ...,
+  onComplete: (raw) <span class="token operator">=></span> db.<span class="token function">save</span>(raw),
+);
+
+<span class="token comment">// Restore from saved raw response</span>
+genUi.<span class="token function">restore</span>(viewId: <span class="token string">'message-42'</span>, raw: savedRawString);
+
+<span class="token comment">// Place views anywhere in the widget tree</span>
+genUi.<span class="token function">view</span>(<span class="token string">'side-panel'</span>)         <span class="token comment">// Flowserract side panel case</span>
+genUi.<span class="token function">view</span>(<span class="token string">'message-42'</span>)         <span class="token comment">// Chat bubble case  </span>
+genUi.<span class="token function">view</span>(<span class="token string">'global-modal'</span>)       <span class="token comment">// Global action case</span>
+
+<span class="token comment">// Cleanup</span>
+genUi.<span class="token function">disposeView</span>(<span class="token string">'message-42'</span>);</code></pre>
+					</div>
+				</div>
+			</Tabs>
 		</div>
 
 		<!-- Responsibilities -->
@@ -105,7 +155,137 @@ genUi.<span class="token function">disposeSurface</span>(<span class="token stri
 					<div>
 						<span class="feature-meta">CONTROLLER HANDLES</span>
 						<h3>The Parsing & Piping</h3>
-						<p>We provide the system prompt instructions, parse the AI's complex stream responses, and automatically pipe the successfully parsed generative UI directly to the requested surface ID.</p>
+						<p>We provide the system prompt instructions, parse the AI's complex stream responses, and automatically pipe the successfully parsed generative UI directly to the requested view ID.</p>
+					</div>
+				</div>
+			</div>
+			
+			<p style="margin-top: 1.5rem !important;">
+				Basically: We give them a prompt fragment, they share the response and which view we pipe the UI to, and we display the UI of a view ID requested.
+			</p>
+		</div>
+
+		<!-- Routing Modes -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>Streaming View & Target Routing</h2>
+			<p>
+				When the LLM streams its response, the model can seamlessly embed a dynamic UI widget tree by enclosing a valid JSON payload within custom <code>&lt;interface&gt;</code> and <code>&lt;/interface&gt;</code> tags. The engine isolates these tagged blocks to render the visual UI components on-the-fly, supporting two distinct routing modes:
+			</p>
+			
+			<div class="features-grid">
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">MODE 01</span>
+						<h3>Single-View / Inline Chat Mode</h3>
+						<p>If the model streams an untagged <code>&lt;interface&gt;</code> block, all components are rendered inline. The default <code>.view('message-42')</code> widget handles the entire sandwich layout, automatically converting standard text portions to Markdown and wrapping the dynamic widget tree smoothly.</p>
+					</div>
+				</div>
+				
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">MODE 02</span>
+						<h3>Multi-View / Target-Routed Mode</h3>
+						<p>If the model streams an interface tag specifying a view (e.g., <code>&lt;interface viewId="side-panel"&gt;</code>), the default view only displays text while the target view container (mounted elsewhere via <code>genUi.view('side-panel')</code>) dynamically catches and builds the layout.</p>
+					</div>
+				</div>
+			</div>
+			
+			<p style="margin-top: 1.25rem !important; font-size: 0.85rem; opacity: 0.75; font-style: italic;">
+				* Graceful fallback: If an unknown widget is encountered, developers can supply a custom <code>onUnknownWidget</code> handler, which defaults to displaying a descriptive error layout.
+			</p>
+		</div>
+
+		<!-- Schema & Registry -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>JSON Protocol & ID Registry</h2>
+			<p>
+				Rather than using complex nested schemas that are highly prone to hallucination, the engine uses flat maps for each widget, allowing nesting to represent clean hierarchy structure.
+			</p>
+			
+			<div class="code-wrapper" style="margin-bottom: 1.5rem;">
+				<span class="code-title">PROTOCOL WIDGET JSON</span>
+				<pre><code><span class="token comment">// Nested column and text widget layout</span>
+&#123;
+  <span class="token string">"namespace"</span>: <span class="token string">"core:column"</span>,
+  <span class="token string">"children"</span>: [
+    &#123;
+      <span class="token string">"namespace"</span>: <span class="token string">"core:text"</span>,
+      <span class="token string">"text"</span>: <span class="token string">"Do not press the button!"</span>
+    &#125;,
+    &#123;
+      <span class="token string">"namespace"</span>: <span class="token string">"core:elevated_button"</span>,
+      <span class="token string">"child"</span>: &#123;
+        <span class="token string">"namespace"</span>: <span class="token string">"core:text"</span>,
+        <span class="token string">"text"</span>: <span class="token string">"The button."</span>
+      &#125;
+    &#125;
+  ]
+&#125;</code></pre>
+			</div>
+
+			<p>
+				To resolve prompts overlapping and duplicate entries, built-in and custom widgets are registered with a strict namespacing ID system resembling a Minecraft-like format:
+				<code style="display: inline-block; margin-top: 0.25rem; font-weight: 600;">&lt;provider&gt;:name_in_snake_case</code>
+			</p>
+			<p>
+				All built-in system widgets use the <code>core</code> provider. The Alpha V1 Built-In Widget Registry contains: <code>Text</code>, <code>Button</code>, <code>Column</code>, <code>Row</code>, <code>Container</code>, and <code>Textfield</code>.
+			</p>
+		</div>
+
+		<!-- Streaming Architecture -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>Streaming Generative Architecture</h2>
+			<p>
+				Powered by <code>llm_json_stream</code>, the system rejects static decoding, building widgets progressively token-by-token. This updates the <code>.register()</code> signature to feed property streams:
+			</p>
+			
+			<div class="code-wrapper" style="margin-bottom: 1.5rem;">
+				<span class="code-title">STREAM-AWARE BUILDER SIGNATURE</span>
+				<pre><code><span class="token keyword">void</span> <span class="token function">register</span>(<span class="token class">String</span> namespace, <span class="token class">Widget</span> <span class="token keyword">Function</span>(<span class="token class">MapPropertyStream</span> mapStream) builder)</code></pre>
+			</div>
+
+			<div class="features-grid">
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">TECH 01</span>
+						<h3>Hierarchical Prop Passing</h3>
+						<p>Sub-streams are extracted (<code>MapPropertyStream</code> / <code>ListPropertyStream</code>) and passed recursively. Parents immediately mount child layouts, allowing child nodes to update self-reactively on their own streams without blocking layout.</p>
+					</div>
+				</div>
+				
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">TECH 02</span>
+						<h3>Accumulating String Builder</h3>
+						<p>To eliminate jarring UI jumps or frame drops during parsing, text elements use an accumulating string builder that grows progressively on every raw text token chunk, maintaining perfect conversational context.</p>
+					</div>
+				</div>
+
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">TECH 03</span>
+						<h3>Dynamic Action Activation</h3>
+						<p>Form buttons paint greyed out and disabled. The moment the LLM streams the action payload, the callback resolves the future (<code>mapStream.getStringProperty('action').future</code>), activating and transitioning the button dynamically.</p>
+					</div>
+				</div>
+
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">TECH 04</span>
+						<h3>Centralized Interactions</h3>
+						<p>Interactions (like form submissions or button clicks) are mapped back to the app layer using a centralized action dispatcher. Developers register active callbacks on the controller to receive real-time updates.</p>
 					</div>
 				</div>
 			</div>
