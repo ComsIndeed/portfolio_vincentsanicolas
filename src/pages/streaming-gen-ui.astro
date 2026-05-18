@@ -1,0 +1,245 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Chip from '../components/chip.astro';
+import { Icon } from 'astro-icon/components';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+
+import '../styles/project.css';
+---
+
+<Layout 
+	title="Streaming Gen UI Controller | Vincent Sanicolas" 
+	description="A highly modular generative UI controller for Flutter. Designed to manage UI surface streaming, dynamic widget injection, and state restoration from LLM outputs."
+	showBack={true}
+>
+	<!-- Title Header with Links Below Subtitle -->
+	<div data-snap="block" class="show-snap project-detail-header" data-snap-align="fill">
+		<div class="header-content">
+			<span class="project-mono-label">FLUTTER & DART UTILITY</span>
+			<h1>Streaming Generative UI Controller</h1>
+			<p class="subtitle">A highly modular generative UI controller for Flutter. Designed to manage UI surface streaming, dynamic widget injection, and state restoration from LLM outputs, empowering developers to instantly drop responsive, AI-driven components anywhere in their widget tree.</p>
+			
+			<div class="project-links">
+				<Chip label="Flutter">
+					<Icon name="simple-icons:flutter" slot="icon" />
+				</Chip>
+				<Chip label="Dart">
+					<Icon name="simple-icons:dart" slot="icon" />
+				</Chip>
+			</div>
+		</div>
+	</div>
+
+	<!-- Centered Wider Content Container -->
+	<div class="project-content-container">
+		
+		<!-- The Concept -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>The Concept</h2>
+			<p>
+				Building generative AI interfaces usually involves tightly coupling LLM prompts, stream parsing logic, state management, and widget rendering. We wanted to decouple this entirely. The <code>StreamingGenUi</code> controller provides a clean boundary: we hand the developer the system prompt fragment, they manage their own LLM calls, and then they simply pipe the raw response stream back into the controller.
+			</p>
+			
+			<ImagePlaceholder description="Schematic of the decoupled architecture: Developer provides the stream, Controller targets the Surface ID." />
+		</div>
+
+		<!-- Usage & API -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>Syntax and Usage</h2>
+			<p>
+				The API is designed for minimal boilerplate and maximum flexibility. Surfaces can be dynamically requested and populated with AI-generated widget trees across your entire application.
+			</p>
+			
+			<div class="code-wrapper">
+				<span class="code-title">FLUTTER INTEGRATION</span>
+				<pre><code><span class="token comment">// The one class you actually need</span>
+<span class="token keyword">final</span> genUi <span class="token operator">=</span> <span class="token class">StreamingGenUi</span>(registry: myRegistry);
+
+<span class="token comment">// Expose the prompt fragment — they inject it wherever they want</span>
+<span class="token keyword">final</span> prompt <span class="token operator">=</span> genUi.systemPrompt;
+
+<span class="token comment">// They call their LLM however they want, then pipe the stream in</span>
+<span class="token keyword">await</span> genUi.<span class="token function">stream</span>(response, surfaceId: <span class="token string">'side-panel'</span>);  <span class="token comment">// Flowserract case</span>
+<span class="token keyword">await</span> genUi.<span class="token function">stream</span>(response, surfaceId: <span class="token string">'message-42'</span>);  <span class="token comment">// Chat bubble case</span>
+<span class="token keyword">await</span> genUi.<span class="token function">stream</span>(response, surfaceId: <span class="token string">'global-modal'</span>); <span class="token comment">// Global action case</span>
+
+<span class="token comment">// Get final parsed data after completion (e.g. to save to DB)</span>
+<span class="token keyword">final</span> data <span class="token operator">=</span> genUi.<span class="token function">getSurfaceData</span>(<span class="token string">'message-42'</span>);
+
+<span class="token comment">// Restore from saved data — internally just streams it as an instant single-value stream</span>
+genUi.<span class="token function">restore</span>(surfaceId: <span class="token string">'message-42'</span>, data: savedJson);
+
+<span class="token comment">// Cleanup when a surface is permanently gone (e.g. chat cleared, logout)</span>
+genUi.<span class="token function">disposeSurface</span>(<span class="token string">'message-42'</span>);
+
+<span class="token comment">// They place the surface widget wherever they want in their tree</span>
+<span class="token class">GenUiSurface</span>(controller: genUi, id: <span class="token string">'side-panel'</span>)
+<span class="token class">GenUiSurface</span>(controller: genUi, id: <span class="token string">'message-42'</span>)
+<span class="token class">GenUiSurface</span>(controller: genUi, id: <span class="token string">'global-modal'</span>)</code></pre>
+			</div>
+		</div>
+
+		<!-- Responsibilities -->
+		<div data-snap="block" class="show-snap section-block" data-snap-align="fill">
+			<h2>Separation of Concerns</h2>
+			<p>
+				This utility establishes clear responsibilities to ensure the developer maintains full control over the application's networking layer and conversational state.
+			</p>
+			
+			<div class="features-grid">
+				<!-- Card 1 -->
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">DEVELOPER HANDLES</span>
+						<h3>The Transport Layer</h3>
+						<p>You handle registering the initial UI components, maintaining the chat history state, calling the actual LLM API, and rendering the fallback text states.</p>
+					</div>
+				</div>
+
+				<!-- Card 2 -->
+				<div class="feature-card">
+					<div class="feature-corner-tl"></div>
+					<div class="feature-corner-br"></div>
+					<div>
+						<span class="feature-meta">CONTROLLER HANDLES</span>
+						<h3>The Parsing & Piping</h3>
+						<p>We provide the system prompt instructions, parse the AI's complex stream responses, and automatically pipe the successfully parsed generative UI directly to the requested surface ID.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</Layout>
+
+<style is:global>
+	/* Standard Code Block Styles adapted from the parsers page */
+	.code-wrapper {
+		position: relative;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		background-color: #f3f4f6;
+		color: #1f2937;
+		border-radius: 0;
+		overflow: hidden;
+		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+		margin-top: 1.5rem;
+	}
+
+	.code-title {
+		display: block;
+		background-color: #e5e7eb;
+		padding: 0.5rem 1rem;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.72rem;
+		font-weight: 700;
+		color: #4b5563;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		letter-spacing: 0.1em;
+	}
+
+	.code-wrapper pre {
+		margin: 0;
+		padding: 1.25rem;
+		overflow-x: auto;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.85rem;
+		line-height: 1.6;
+		background: transparent;
+	}
+
+	.code-wrapper code {
+		font-family: inherit;
+		color: inherit;
+	}
+
+	.token.keyword { color: #b91c1c; font-weight: 600; }
+	.token.string { color: #15803d; }
+	.token.comment { color: #6b7280; font-style: italic; }
+	.token.class { color: #0369a1; font-weight: 600; }
+	.token.function { color: #6d28d9; }
+	.token.operator { color: #4b5563; }
+
+	/* Features Grid */
+	.features-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 1.5rem;
+		margin-top: 1.5rem;
+	}
+
+	.feature-card {
+		position: relative;
+		border: 1px solid rgba(0, 0, 0, 0.15);
+		background-color: var(--bg-color);
+		padding: 1.25rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
+		transition: transform 150ms var(--ease-out-expo), box-shadow 150ms var(--ease-out-expo);
+	}
+
+	.feature-card:hover {
+		transform: translate(-1px, -1px);
+		box-shadow: 4px 4px 0px var(--text-color);
+		border-color: var(--text-color);
+	}
+
+	.feature-corner-tl, .feature-corner-br {
+		content: "";
+		position: absolute;
+		width: 5px;
+		height: 5px;
+		border-color: var(--grid-color);
+		border-style: solid;
+		pointer-events: none;
+		opacity: 0.4;
+		transition: opacity 150ms var(--ease-out-expo), transform 150ms var(--ease-out-expo);
+	}
+
+	.feature-corner-tl { top: -3px; left: -3px; border-width: 1px 0 0 1px; }
+	.feature-corner-br { bottom: -3px; right: -3px; border-width: 0 1px 1px 0; }
+
+	.feature-card:hover .feature-corner-tl {
+		opacity: 0.8;
+		transform: translate(-1px, -1px);
+	}
+
+	.feature-card:hover .feature-corner-br {
+		opacity: 0.8;
+		transform: translate(1px, 1px);
+	}
+
+	.feature-meta {
+		display: block;
+		font-family: 'JetBrains Mono', monospace;
+		font-size: 0.68rem;
+		font-weight: 700;
+		color: #9ca3af;
+		letter-spacing: 0.12em;
+		margin-bottom: 0.35rem;
+	}
+
+	.feature-card h3 {
+		font-size: 1.1rem;
+		font-weight: 700;
+		margin: 0 0 0.5rem 0;
+		color: var(--text-color);
+	}
+
+	.feature-card p {
+		font-size: 0.85rem;
+		line-height: 1.45;
+		color: var(--text-color);
+		opacity: 0.75;
+		margin: 0;
+	}
+
+	@media (max-width: 768px) {
+		.features-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
