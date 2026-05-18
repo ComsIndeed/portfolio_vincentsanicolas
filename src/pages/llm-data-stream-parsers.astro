@@ -934,13 +934,6 @@ Ran all test suites successfully across Python, TypeScript, Dart, C#, and Kotlin
 		flex-direction: column;
 		justify-content: space-between;
 		box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
-		transition: transform 150ms var(--ease-out-expo), box-shadow 150ms var(--ease-out-expo);
-	}
-
-	.feature-card:hover {
-		transform: translate(-1px, -1px);
-		box-shadow: 4px 4px 0px var(--text-color);
-		border-color: var(--text-color);
 	}
 
 	.feature-corner-tl, .feature-corner-br {
@@ -952,7 +945,6 @@ Ran all test suites successfully across Python, TypeScript, Dart, C#, and Kotlin
 		border-style: solid;
 		pointer-events: none;
 		opacity: 0.4;
-		transition: opacity 150ms var(--ease-out-expo), transform 150ms var(--ease-out-expo);
 	}
 
 	.feature-corner-tl {
@@ -965,16 +957,6 @@ Ran all test suites successfully across Python, TypeScript, Dart, C#, and Kotlin
 		bottom: -3px;
 		right: -3px;
 		border-width: 0 1px 1px 0;
-	}
-
-	.feature-card:hover .feature-corner-tl {
-		opacity: 0.8;
-		transform: translate(-1px, -1px);
-	}
-
-	.feature-card:hover .feature-corner-br {
-		opacity: 0.8;
-		transform: translate(1px, 1px);
 	}
 
 	.feature-meta {
