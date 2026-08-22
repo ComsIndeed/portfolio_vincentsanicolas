@@ -46,7 +46,7 @@ body::after {
   background-image: 
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
-  background-size: var(--grid-size) var(--grid-size);
+  background-size: 32rem 32rem;
   
   /* Very sharp, binary-like weathering spots (unspread) */
   mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1000 1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='weathering'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 30 -15'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23weathering)'/%3E%3C/svg%3E");
