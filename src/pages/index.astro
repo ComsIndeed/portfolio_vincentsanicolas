@@ -1,8 +1,111 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BioHeader from '../components/BioHeader.astro';
-import Chip from '../components/chip.astro';
-import { Icon } from 'astro-icon/components';
+import ProjectTile, { type TechTag } from '../components/ProjectTile.astro';
+
+interface ProjectItem {
+	name: string;
+	title: string;
+	href: string;
+	ariaLabel: string;
+	description: string;
+	imageSrc: string;
+	imageAlt: string;
+	transitionName?: string;
+	tags: TechTag[];
+}
+
+const projects: ProjectItem[] = [
+	{
+		name: 'LLM_JSON_STREAM (NPM & PUB.DEV)',
+		title: 'Open-Source Reactive JSON Stream Parser',
+		href: '/llm-json-stream',
+		ariaLabel: 'View Project: LLM_JSON_STREAM',
+		description:
+			'A high-performance incremental JSON stream parsing library published across the TypeScript (NPM) and Dart (pub.dev) ecosystems. Engineered with an event-driven state machine to intercept, buffer, and incrementally parse incomplete, chunked LLM JSON outputs, enabling real-time generative UI assembly and instant data bindings before the stream terminates.',
+		imageSrc: '/images/llm-json-stream-placeholder.png',
+		imageAlt: 'LLM JSON Stream Parser Schematic',
+		transitionName: 'llm-json-stream-image',
+		tags: [
+			{
+				label: 'TypeScript',
+				icon: 'simple-icons:typescript',
+				href: 'https://www.npmjs.com/package/llm-json-stream',
+				linkText: 'Available on NPM'
+			},
+			{
+				label: 'Dart',
+				icon: 'simple-icons:dart',
+				href: 'https://pub.dev/packages/llm_json_stream',
+				linkText: 'Available on pub.dev'
+			}
+		]
+	},
+	{
+		name: 'LLM_DATA_STREAM_PARSERS (MULTI-LANGUAGE)',
+		title: 'Incremental LLM Data Stream Parsers',
+		href: '/llm-data-stream-parsers',
+		ariaLabel: 'View Project: LLM_DATA_STREAM_PARSERS',
+		description:
+			'A comprehensive, multi-language streaming parsing engine compiled for Python, TypeScript, Dart, C#, and Kotlin. Specially designed to handle real-time structural analysis of incomplete, tokenized data packets, incrementally yielding valid syntactic sub-trees from raw JSON, YAML, and XML model streams as they are emitted byte-by-byte.',
+		imageSrc: '/images/llm-data-stream-parsers-placeholder.png',
+		imageAlt: 'LLM Data Stream Parsers Schematic',
+		transitionName: 'llm-data-stream-parsers-image',
+		tags: [
+			{ label: 'Python', icon: 'simple-icons:python' },
+			{ label: 'TypeScript', icon: 'simple-icons:typescript' },
+			{ label: 'Dart', icon: 'simple-icons:dart' },
+			{ label: 'C#', icon: 'simple-icons:csharp' },
+			{ label: 'Kotlin', icon: 'simple-icons:kotlin' }
+		]
+	},
+	{
+		name: 'PROJECT 2359',
+		title: 'AI-Driven Study Application & FSRS Scheduler',
+		href: '/project-2359',
+		ariaLabel: 'View Project: PROJECT 2359',
+		description:
+			'A full-stack, AI-augmented educational platform utilizing a custom Free Spaced Repetition Scheduler (FSRS) algorithm and local vector embeddings. Built with Flutter, Supabase, and PostgreSQL, the engine indexes textbook PDFs locally to build context-aware active recall pipelines, automatically generating high-yield study decks and quizzes without data hallucination.',
+		imageSrc: '/images/project-2359-placeholder.png',
+		imageAlt: 'Project 2359 AI Study & FSRS Scheduler Schematic',
+		transitionName: 'project-2359-image',
+		tags: [
+			{ label: 'Flutter', icon: 'simple-icons:flutter' },
+			{ label: 'Supabase', icon: 'simple-icons:supabase' }
+		]
+	},
+	{
+		name: 'PROJECT 2360 (FLOWSERRACT)',
+		title: 'AI-Driven Zero-Compile Runtime Native App Engine',
+		href: '/project-2360',
+		ariaLabel: 'View Project: PROJECT 2360',
+		description:
+			'An experimental dynamic canvas framework that compiles natural language prompts into fully functional native applications at runtime, bypassing traditional compilation steps. Engineered complete with an on-the-fly local database, reactive state management, runtime scripting execution, dynamic native layouts, and an integrated AI architect capable of designing, building, and running the entire system interactively.',
+		imageSrc: '/images/project-2360-placeholder.png',
+		imageAlt: 'Flowserract Generative Native UI Engine Schematic',
+		transitionName: 'project-2360-image',
+		tags: [
+			{ label: 'Flutter', icon: 'simple-icons:flutter' },
+			{ label: 'Supabase', icon: 'simple-icons:supabase' },
+			{ label: 'Dart', icon: 'simple-icons:dart' }
+		]
+	},
+	{
+		name: 'STREAMING_GEN_UI (FLUTTER)',
+		title: 'Real-Time Generative User Interface Rendering & Processing Engine',
+		href: '/streaming-gen-ui',
+		ariaLabel: 'View Project: STREAMING_GEN_UI',
+		description:
+			'A highly modular, event-driven generative UI layout engine for Flutter applications. Designed to decouple AI transport layers from front-end widget trees, it handles namespaced token streams, compiles partial JSON component schemas via reactive builders, manages multi-view target-routing tags, and dynamically activates passive inputs as streams finalize.',
+		imageSrc: '/images/streaming-gen-ui-placeholder.png',
+		imageAlt: 'Streaming Gen UI Controller Schematic',
+		transitionName: 'streaming-gen-ui-image',
+		tags: [
+			{ label: 'Flutter', icon: 'simple-icons:flutter' },
+			{ label: 'Dart', icon: 'simple-icons:dart' }
+		]
+	}
+];
 ---
 
 <Layout title="Vincent Sanicolas | Portfolio">
@@ -17,200 +120,9 @@ import { Icon } from 'astro-icon/components';
 	</div>
 
 	<div class="project-list">
-		<!-- Project 1 -->
-		<section class="project-group">
-			<a href="/llm-json-stream" class="project-tile-link" aria-label="View Project: LLM_JSON_STREAM"></a>
-			
-			<div class="project-text-side">
-				<div data-snap="block" class="show-snap project-header-block">
-					<span class="project-name">LLM_JSON_STREAM (NPM & PUB.DEV)</span>
-					<h3 class="project-title">Open-Source Reactive JSON Stream Parser</h3>
-				</div>
-				
-				<div data-snap="block" class="show-snap project-description-block">
-					<p class="project-description">
-						A high-performance incremental JSON stream parsing library published across the TypeScript (NPM) and Dart (pub.dev) ecosystems. Engineered with an event-driven state machine to intercept, buffer, and incrementally parse incomplete, chunked LLM JSON outputs, enabling real-time generative UI assembly and instant data bindings before the stream terminates.
-					</p>
-				</div>
-				
-				<div data-snap="block" class="show-snap project-tech-block">
-					<div class="project-tech">
-						<Chip 
-							label="TypeScript" 
-							href="https://www.npmjs.com/package/llm-json-stream" 
-							linkText="Available on NPM"
-						>
-							<Icon name="simple-icons:typescript" slot="icon" />
-						</Chip>
-						<Chip 
-							label="Dart" 
-							href="https://pub.dev/packages/llm_json_stream" 
-							linkText="Available on pub.dev"
-						>
-							<Icon name="simple-icons:dart" slot="icon" />
-						</Chip>
-					</div>
-				</div>
-			</div>
-
-			<div data-snap="block" class="show-snap project-image-block">
-				<div class="project-image-container">
-					<img src="/images/llm-json-stream-placeholder.png" alt="LLM JSON Stream Parser Schematic" class="project-image" transition:name="llm-json-stream-image" />
-				</div>
-			</div>
-		</section>
-
-		<!-- Project 2 -->
-		<section class="project-group">
-			<a href="/llm-data-stream-parsers" class="project-tile-link" aria-label="View Project: LLM_DATA_STREAM_PARSERS"></a>
-			
-			<div class="project-text-side">
-				<div data-snap="block" class="show-snap project-header-block">
-					<span class="project-name">LLM_DATA_STREAM_PARSERS (MULTI-LANGUAGE)</span>
-					<h3 class="project-title">Incremental LLM Data Stream Parsers</h3>
-				</div>
-				
-				<div data-snap="block" class="show-snap project-description-block">
-					<p class="project-description">
-						A comprehensive, multi-language streaming parsing engine compiled for Python, TypeScript, Dart, C#, and Kotlin. Specially designed to handle real-time structural analysis of incomplete, tokenized data packets, incrementally yielding valid syntactic sub-trees from raw JSON, YAML, and XML model streams as they are emitted byte-by-byte.
-					</p>
-				</div>
-				
-				<div data-snap="block" class="show-snap project-tech-block">
-					<div class="project-tech">
-						<Chip label="Python">
-							<Icon name="simple-icons:python" slot="icon" />
-						</Chip>
-						<Chip label="TypeScript">
-							<Icon name="simple-icons:typescript" slot="icon" />
-						</Chip>
-						<Chip label="Dart">
-							<Icon name="simple-icons:dart" slot="icon" />
-						</Chip>
-						<Chip label="C#">
-							<Icon name="simple-icons:csharp" slot="icon" />
-						</Chip>
-						<Chip label="Kotlin">
-							<Icon name="simple-icons:kotlin" slot="icon" />
-						</Chip>
-					</div>
-				</div>
-			</div>
-
-			<div data-snap="block" class="show-snap project-image-block">
-				<div class="project-image-container">
-					<img src="/images/llm-data-stream-parsers-placeholder.png" alt="LLM Data Stream Parsers Schematic" class="project-image" transition:name="llm-data-stream-parsers-image" />
-				</div>
-			</div>
-		</section>
-
-		<!-- Project 3 -->
-		<section class="project-group">
-			<a href="/project-2359" class="project-tile-link" aria-label="View Project: PROJECT 2359"></a>
-			
-			<div class="project-text-side">
-				<div data-snap="block" class="show-snap project-header-block">
-					<span class="project-name">PROJECT 2359</span>
-					<h3 class="project-title">AI-Driven Study Application & FSRS Scheduler</h3>
-				</div>
-				
-				<div data-snap="block" class="show-snap project-description-block">
-					<p class="project-description">
-						A full-stack, AI-augmented educational platform utilizing a custom Free Spaced Repetition Scheduler (FSRS) algorithm and local vector embeddings. Built with Flutter, Supabase, and PostgreSQL, the engine indexes textbook PDFs locally to build context-aware active recall pipelines, automatically generating high-yield study decks and quizzes without data hallucination.
-					</p>
-				</div>
-				
-				<div data-snap="block" class="show-snap project-tech-block">
-					<div class="project-tech">
-						<Chip label="Flutter">
-							<Icon name="simple-icons:flutter" slot="icon" />
-						</Chip>
-						<Chip label="Supabase">
-							<Icon name="simple-icons:supabase" slot="icon" />
-						</Chip>
-					</div>
-				</div>
-			</div>
-
-			<div data-snap="block" class="show-snap project-image-block">
-				<div class="project-image-container">
-					<img src="/images/project-2359-placeholder.png" alt="Project 2359 AI Study & FSRS Scheduler Schematic" class="project-image" transition:name="project-2359-image" />
-				</div>
-			</div>
-		</section>
-
-		<!-- Project 4 -->
-		<section class="project-group">
-			<a href="/project-2360" class="project-tile-link" aria-label="View Project: PROJECT 2360"></a>
-			
-			<div class="project-text-side">
-				<div data-snap="block" class="show-snap project-header-block">
-					<span class="project-name">PROJECT 2360 (FLOWSERRACT)</span>
-					<h3 class="project-title">AI-Driven Zero-Compile Runtime Native App Engine</h3>
-				</div>
-				
-				<div data-snap="block" class="show-snap project-description-block">
-					<p class="project-description">
-						An experimental dynamic canvas framework that compiles natural language prompts into fully functional native applications at runtime, bypassing traditional compilation steps. Engineered complete with an on-the-fly local database, reactive state management, runtime scripting execution, dynamic native layouts, and an integrated AI architect capable of designing, building, and running the entire system interactively.
-					</p>
-				</div>
-				
-				<div data-snap="block" class="show-snap project-tech-block">
-					<div class="project-tech">
-						<Chip label="Flutter">
-							<Icon name="simple-icons:flutter" slot="icon" />
-						</Chip>
-						<Chip label="Supabase">
-							<Icon name="simple-icons:supabase" slot="icon" />
-						</Chip>
-						<Chip label="Dart">
-							<Icon name="simple-icons:dart" slot="icon" />
-						</Chip>
-					</div>
-				</div>
-			</div>
-
-			<div data-snap="block" class="show-snap project-image-block">
-				<div class="project-image-container">
-					<img src="/images/project-2360-placeholder.png" alt="Flowserract Generative Native UI Engine Schematic" class="project-image" transition:name="project-2360-image" />
-				</div>
-			</div>
-		</section>
-
-		<!-- Project 5 -->
-		<section class="project-group">
-			<a href="/streaming-gen-ui" class="project-tile-link" aria-label="View Project: STREAMING_GEN_UI"></a>
-			
-			<div class="project-text-side">
-				<div data-snap="block" class="show-snap project-header-block">
-					<span class="project-name">STREAMING_GEN_UI (FLUTTER)</span>
-					<h3 class="project-title">Real-Time Generative User Interface Rendering & Processing Engine</h3>
-				</div>
-				
-				<div data-snap="block" class="show-snap project-description-block">
-					<p class="project-description">
-						A highly modular, event-driven generative UI layout engine for Flutter applications. Designed to decouple AI transport layers from front-end widget trees, it handles namespaced token streams, compiles partial JSON component schemas via reactive builders, manages multi-view target-routing tags, and dynamically activates passive inputs as streams finalize.
-					</p>
-				</div>
-				
-				<div data-snap="block" class="show-snap project-tech-block">
-					<div class="project-tech">
-						<Chip label="Flutter">
-							<Icon name="simple-icons:flutter" slot="icon" />
-						</Chip>
-						<Chip label="Dart">
-							<Icon name="simple-icons:dart" slot="icon" />
-						</Chip>
-					</div>
-				</div>
-			</div>
-
-			<div data-snap="block" class="show-snap project-image-block">
-				<div class="project-image-container">
-					<img src="/images/streaming-gen-ui-placeholder.png" alt="Streaming Gen UI Controller Schematic" class="project-image" transition:name="streaming-gen-ui-image" />
-				</div>
-			</div>
-		</section>
+		{projects.map((project) => (
+			<ProjectTile {...project} />
+		))}
 	</div>
 
 	<style>
@@ -221,184 +133,8 @@ import { Icon } from 'astro-icon/components';
 			margin-top: var(--grid-size);
 		}
 
-		.project-link {
-			text-decoration: none;
-			color: inherit;
-			display: block;
-		}
-
-		.project-group {
-			display: grid;
-			grid-template-columns: 1.2fr 1fr; /* Wider images, giving more balanced proportions */
-			gap: var(--grid-size);
-			padding: 0;
-			position: relative;
-			transition: 
-				background-color 200ms var(--ease-out-expo),
-				transform 150ms var(--ease-out-expo);
-		}
-
-		.project-text-side {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			justify-content: center; /* Vertically centers the text block relative to the image */
-		}
-
-		.project-image-block {
-			width: 100% !important;
-			display: flex;
-			align-items: center; /* Centers the 4:3 block vertically */
-		}
-
-		.project-image-container {
-			width: 100%;
-			aspect-ratio: 4 / 3; /* Perfect 4:3 ratio */
-			background: rgba(0, 0, 0, 0.015);
-			border: 1px dashed rgba(0, 0, 0, 0.1);
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			overflow: hidden;
-			position: relative;
-			transition: border-color 150ms var(--ease-out-expo), background-color 150ms var(--ease-out-expo);
-		}
-
-		.project-group:hover .project-image-container {
-			border-color: rgba(0, 0, 0, 0.25);
-			background-color: rgba(0, 0, 0, 0.03);
-		}
-
-		.project-image {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			opacity: 0.85;
-			mix-blend-mode: multiply; /* Perfect for off-white images to blend in */
-			transition: opacity 150ms var(--ease-out-expo), transform 150ms var(--ease-out-expo);
-		}
-
-		.project-group:hover .project-image {
-			opacity: 1;
-			transform: scale(1.02);
-		}
-
-		.project-title-link {
-			text-decoration: none;
-			color: inherit;
-			display: inline-block;
-			width: fit-content;
-		}
-
-		/* Hover effect on the whole project group */
-		.project-group:hover {
-			background-color: rgba(0, 0, 0, 0.02);
-		}
-
-		.project-group:active {
-			transform: scale(0.995);
-		}
-
-		.project-group:hover .project-title {
-			text-decoration: underline;
-			text-underline-offset: 4px;
-			text-decoration-thickness: 2px;
-		}
-
-		.project-tile-link {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			z-index: 10;
-		}
-
-		.project-tech-block {
-			position: relative;
-			z-index: 20;
-			pointer-events: none; /* Allow clicks to pass through to the tile link */
-		}
-
-		.project-tech-block :global(a) {
-			pointer-events: auto; /* Re-enable clicks for chips with links */
-		}
-
-		.project-header-block,
-		.project-description-block,
-		.project-tech-block {
-			width: 100% !important;
-			padding: 0;
-		}
-
-		.project-header-block {
-			gap: 0.5rem;
-		}
-
-		.project-title {
-			font-size: 1.85rem; /* Slightly smaller than h1 */
-			font-weight: 600; /* Less bold, matching global headings */
-			letter-spacing: -0.02em;
-			margin: 0;
-			color: var(--text-color);
-			line-height: 1.1;
-		}
-
-		.project-name {
-			font-size: 0.9rem;
-			font-family: 'JetBrains Mono', monospace;
-			opacity: 0.5;
-			text-transform: uppercase;
-			letter-spacing: 0.1em;
-			font-weight: 500;
-		}
-
-		.project-description {
-			font-size: 0.95rem;
-			line-height: 1.7;
-			color: var(--text-color);
-			opacity: 0.7;
-			max-width: 36rem;
-			margin: 0;
-			text-align: justify;
-		}
-
-		.project-tech {
-			display: flex;
-			flex-wrap: wrap;
-			gap: 0.75rem;
-		}
-
 		.spacer-block {
 			height: 2rem;
-		}
-
-		@media (max-width: 768px) {
-			.project-group {
-				grid-template-columns: 1fr;
-				row-gap: 1.5rem;
-				column-gap: 0;
-			}
-
-			.project-text-side {
-				display: contents !important; /* Wrapper collapses, children become direct grid items */
-			}
-
-			.project-header-block {
-				order: 1 !important;
-			}
-
-			.project-image-block {
-				order: 2 !important; /* Graphic sits perfectly inline between header tagline and paragraph! */
-			}
-
-			.project-description-block {
-				order: 3 !important;
-			}
-
-			.project-tech-block {
-				order: 4 !important;
-			}
 		}
 	</style>
 </Layout>

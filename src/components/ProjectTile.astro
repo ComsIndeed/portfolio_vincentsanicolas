@@ -1,0 +1,250 @@
+---
+import Chip from './chip.astro';
+import { Icon } from 'astro-icon/components';
+
+export interface TechTag {
+	label: string;
+	icon?: string;
+	href?: string;
+	linkText?: string;
+}
+
+interface Props {
+	href: string;
+	name: string;
+	title: string;
+	description?: string;
+	imageSrc: string;
+	imageAlt: string;
+	transitionName?: string;
+	ariaLabel?: string;
+	tags?: TechTag[];
+}
+
+const {
+	href,
+	name,
+	title,
+	description,
+	imageSrc,
+	imageAlt,
+	transitionName,
+	ariaLabel = `View Project: ${name}`,
+	tags = []
+} = Astro.props;
+---
+
+<section class="project-group">
+	<a href={href} class="project-tile-link" aria-label={ariaLabel}></a>
+	
+	<div class="project-text-side">
+		<div data-snap="block" class="show-snap project-header-block">
+			<span class="project-name">{name}</span>
+			<h3 class="project-title">{title}</h3>
+		</div>
+		
+		<div data-snap="block" class="show-snap project-description-block">
+			<p class="project-description">
+				{description ? description : <slot name="description" />}
+			</p>
+		</div>
+		
+		<div data-snap="block" class="show-snap project-tech-block">
+			<div class="project-tech">
+				{tags.map((tag) => (
+					<Chip 
+						label={tag.label} 
+						href={tag.href} 
+						linkText={tag.linkText}
+					>
+						{tag.icon && <Icon name={tag.icon} slot="icon" />}
+					</Chip>
+				))}
+				<slot name="tech" />
+				<slot />
+			</div>
+		</div>
+	</div>
+
+	<div data-snap="block" class="show-snap project-image-block">
+		<div class="project-image-container">
+			{transitionName ? (
+				<img src={imageSrc} alt={imageAlt} class="project-image" transition:name={transitionName} />
+			) : (
+				<img src={imageSrc} alt={imageAlt} class="project-image" />
+			)}
+		</div>
+	</div>
+</section>
+
+<style>
+	.project-group {
+		display: grid;
+		grid-template-columns: 1.2fr 1fr; /* Wider images, giving more balanced proportions */
+		gap: var(--grid-size);
+		padding: 0;
+		position: relative;
+		transition: 
+			background-color 200ms var(--ease-out-expo),
+			transform 150ms var(--ease-out-expo);
+	}
+
+	.project-text-side {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		justify-content: center; /* Vertically centers the text block relative to the image */
+	}
+
+	.project-image-block {
+		width: 100% !important;
+		display: flex;
+		align-items: center; /* Centers the 4:3 block vertically */
+	}
+
+	.project-image-container {
+		width: 100%;
+		aspect-ratio: 4 / 3; /* Perfect 4:3 ratio */
+		background: rgba(0, 0, 0, 0.015);
+		border: 1px dashed rgba(0, 0, 0, 0.1);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		position: relative;
+		transition: border-color 150ms var(--ease-out-expo), background-color 150ms var(--ease-out-expo);
+	}
+
+	.project-group:hover .project-image-container {
+		border-color: rgba(0, 0, 0, 0.25);
+		background-color: rgba(0, 0, 0, 0.03);
+	}
+
+	.project-image {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0.85;
+		mix-blend-mode: multiply; /* Perfect for off-white images to blend in */
+		transition: opacity 150ms var(--ease-out-expo), transform 150ms var(--ease-out-expo);
+	}
+
+	.project-group:hover .project-image {
+		opacity: 1;
+		transform: scale(1.02);
+	}
+
+	.project-title-link {
+		text-decoration: none;
+		color: inherit;
+		display: inline-block;
+		width: fit-content;
+	}
+
+	/* Hover effect on the whole project group */
+	.project-group:hover {
+		background-color: rgba(0, 0, 0, 0.02);
+	}
+
+	.project-group:active {
+		transform: scale(0.995);
+	}
+
+	.project-group:hover .project-title {
+		text-decoration: underline;
+		text-underline-offset: 4px;
+		text-decoration-thickness: 2px;
+	}
+
+	.project-tile-link {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 10;
+	}
+
+	.project-tech-block {
+		position: relative;
+		z-index: 20;
+		pointer-events: none; /* Allow clicks to pass through to the tile link */
+	}
+
+	.project-tech-block :global(a) {
+		pointer-events: auto; /* Re-enable clicks for chips with links */
+	}
+
+	.project-header-block,
+	.project-description-block,
+	.project-tech-block {
+		width: 100% !important;
+		padding: 0;
+	}
+
+	.project-header-block {
+		gap: 0.5rem;
+	}
+
+	.project-title {
+		font-size: 1.85rem; /* Slightly smaller than h1 */
+		font-weight: 600; /* Less bold, matching global headings */
+		letter-spacing: -0.02em;
+		margin: 0;
+		color: var(--text-color);
+		line-height: 1.1;
+	}
+
+	.project-name {
+		font-size: 0.9rem;
+		font-family: 'JetBrains Mono', monospace;
+		opacity: 0.5;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		font-weight: 500;
+	}
+
+	.project-description {
+		font-size: 0.95rem;
+		line-height: 1.7;
+		color: var(--text-color);
+		opacity: 0.7;
+		max-width: 36rem;
+		margin: 0;
+		text-align: justify;
+	}
+
+	.project-tech {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+
+	@media (max-width: 768px) {
+		.project-group {
+			grid-template-columns: 1fr;
+			row-gap: 1.5rem;
+			column-gap: 0;
+		}
+
+		.project-text-side {
+			display: contents !important; /* Wrapper collapses, children become direct grid items */
+		}
+
+		.project-header-block {
+			order: 1 !important;
+		}
+
+		.project-image-block {
+			order: 2 !important; /* Graphic sits perfectly inline between header tagline and paragraph! */
+		}
+
+		.project-description-block {
+			order: 3 !important;
+		}
+
+		.project-tech-block {
+			order: 4 !important;
+		}
+	}
+</style>
